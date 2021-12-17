@@ -1,3 +1,5 @@
+![[object Object]](https://socialify.git.ci/Trik16/ResourceReservationProject/image?description=1&descriptionEditable=Shared%20Python%20learning%20Experiment&font=Source%20Code%20Pro&issues=1&language=1&name=1&owner=1&pattern=Circuit%20Board&pulls=1&stargazers=1&theme=Dark)
+
 # **ResourceReservationProject**
 This is a simple but complete exercise to learning Python.
 
@@ -45,3 +47,4 @@ Then we could also:
 - Discord Server: https://discord.gg/qMUPBgkW
 - Architecture Diagram: https://drive.google.com/file/d/1XPH84nWvgRdFZSbuQdKIeymoLe_cK1_a/view?usp=sharing
 - Conventional Commits: https://www.conventionalcommits.org/en/v1.0.0/#summary
+- Test Drive Development: https://testdriven.io/blog/modern-tdd/
