@@ -1,10 +1,10 @@
 # **ResourceReservationProject**
-This is a simple but complete exercise to learning Python
+This is a simple but complete exercise to learning Python.
 
 ## Task and flow chart
-We are going to do a new branch of the existing ResPa project from Helsinki City with some major difference. The final task is to have a resource booking app. But, we are still learning, for steps.
+We are going to do a new branch of the existing ResPa project from Helsinki City with some major difference. The goal is to have a resource booking app.
 
-For learning purpose I've imagined an app to book some tables from a list of pubs(or discord servers). And when you book a table there will be also a google calendar events associated. 
+The app books some tables from a list of pubs (or discord servers). When you book a table there a google calendar event will be associated with it.
 
 ![ARCHITECTURE](./images/architecture.png)
 
@@ -26,14 +26,14 @@ For learning purpose I've imagined an app to book some tables from a list of pub
 
 ## STEPS
 
-- Create a study group
-- Discuss the competences to learn and needs
-- Study ResPa code
-- Create new branch of ResPa 
-- Rewrite Django and turn into flask
-- Remove SQL DB to a NoSQL DB
-- Write Telegram and Discord interface
-- Develop the app into docker and kubernetes (we must write cloud native app)
+- Create a study group.
+- Discuss the competences to learn and needs.
+- Study ResPa code.
+- Create new branch of ResPa.
+- Rewrite Django backend into flask.
+- Rewrite SQL DB to a NoSQL DB.
+- Write Telegram and Discord interfaces.
+- Develop the app into docker and kubernetes (The app must be cloud native).
 
-In a second moment we could also:
-- Write interface of an Android/iOS app with Flutter
+Then we could also:
+- Write an interface of an Android/iOS app with Flutter
