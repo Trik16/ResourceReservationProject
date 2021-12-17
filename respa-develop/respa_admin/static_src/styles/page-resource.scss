@@ -1,0 +1,11 @@
+.order-by-link {
+  background-color: #dbdbdb;
+  &:hover {
+    background-color: #ebebeb;
+  }
+}
+
+.period-weekday select {
+  padding-right: 0;
+  pointer-events: none;
+}

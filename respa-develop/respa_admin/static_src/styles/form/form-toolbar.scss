@@ -1,0 +1,24 @@
+.panel.form-toolbar-wrapper {
+  margin: 0;
+
+  .form-toolbar {
+    padding: $padding-large-vertical;
+    display: flex;
+    flex-wrap: nowrap;
+    
+    .toolbar-label {
+      padding: $padding-large-vertical $padding-base-horizontal $padding-large-vertical 0;
+    }
+
+    .select-dropdown {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    
+    button.toolbar-preview {
+      margin-left: 10px;
+      padding: $padding-large-vertical $padding-base-horizontal * 2;
+      background: transparent;
+    }
+  }
+}

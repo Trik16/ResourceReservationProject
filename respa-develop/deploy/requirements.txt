@@ -1,0 +1,5 @@
+-r ../requirements.txt
+uwsgi
+whitenoise
+whitenoise[brotli]
+elastic-apm

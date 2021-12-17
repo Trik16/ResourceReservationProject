@@ -1,0 +1,1698 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-12 09:22+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "No permission to modify this reservation's catering orders."
+msgstr "Ingen tillåtelse att ändra reservationens cateringorder."
+
+msgid "The order contains products from several providers."
+msgstr "Ordern innehåller produkter från flera leverantörer."
+
+msgid "time of creation"
+msgstr "Datum skapad"
+
+msgid "time of modification"
+msgstr "Datum modifierad"
+
+msgid "Name"
+msgstr "Namn"
+
+msgid "Price list URL"
+msgstr "Prislista URL"
+
+msgid "Units"
+msgstr "Enheter"
+
+msgid "Notification email"
+msgstr "Meddelande e-post"
+
+msgid "Catering provider"
+msgstr "Catering leverantör"
+
+msgid "Catering providers"
+msgstr "Catering leverantörer"
+
+msgid "Catering product category"
+msgstr "Catering produkt kategorin"
+
+msgid "Catering product categories"
+msgstr "Catering produkt kategorier"
+
+msgctxt "catering"
+msgid "Category"
+msgstr "Kategori"
+
+msgid "Description"
+msgstr "Beskrivning"
+
+msgid "Catering product"
+msgstr "Catering produkt"
+
+msgid "Catering products"
+msgstr "Catering produkter"
+
+msgid "Reservation"
+msgstr "Reservation"
+
+msgid "Invoicing data"
+msgstr "Faktureringsdata"
+
+msgid "Message"
+msgstr "Meddelande"
+
+msgid "Serving time"
+msgstr "Serverings tid"
+
+msgid "Catering order"
+msgstr "Catering beställning"
+
+msgid "Catering orders"
+msgstr "Catering beställningar"
+
+msgid "Product"
+msgstr "Produkt"
+
+msgid "Quantity"
+msgstr "Kvantitet"
+
+msgid "Order"
+msgstr "Beställning"
+
+msgid "Catering order line"
+msgstr "Catering beställning linje"
+
+msgid "Catering order lines"
+msgstr "Catering beställning linjer"
+
+msgid "Illegal type."
+msgstr "Ogiltig typ."
+
+msgid "You cannot comment this object."
+msgstr "Du kan inte kommentera detta objekt."
+
+msgid "Time of creation"
+msgstr "Skapad"
+
+msgid "Created by"
+msgstr "Skapad av"
+
+msgid "Text"
+msgstr "Text"
+
+msgid "Comment"
+msgstr "Kommentar"
+
+msgid "Comments"
+msgstr "Kommentarer"
+
+msgid "installed"
+msgstr "installerat"
+
+msgid "removed"
+msgstr "tog bort"
+
+msgid "State of the user"
+msgstr "Användarens tillstånd"
+
+msgid "identifier"
+msgstr "identifierare"
+
+msgid "Identifier of user in the access control system (if any)"
+msgstr "Identifiering av användare i åtkomstkontrollsystemet"
+
+msgid "[No identifier]"
+msgstr "[Ingen identifierare]"
+
+#, python-brace-format
+msgid "{uuid}: {name}"
+msgstr ""
+
+#, python-brace-format
+msgid "{uuid}"
+msgstr ""
+
+msgid "requested"
+msgstr "begärd"
+
+msgid "cancelled"
+msgstr "avbruten"
+
+msgid "removing"
+msgstr "avlägsnas"
+
+msgid "access code"
+msgstr "behörighetskod"
+
+msgid "State of the grant"
+msgstr "Tillståndets status"
+
+msgid "Identifier of grant in the access control system (if any)"
+msgstr "Identifierare av tillstånd i åtkomstkontrollsystemet"
+
+msgid "How many times the system has tried to install this grant and failed"
+msgstr ""
+"Hur många gånger har systemet försökt installera detta bidrag och misslyckats"
+
+msgid "How many times the system has tried to remove this grant (and failed)"
+msgstr ""
+"Hur många gånger har systemet försökt installera detta bidrag och misslyckats"
+
+#, python-brace-format
+msgid "{user} {reservation} ({state})"
+msgstr "{user} {reservation} ({state})"
+
+msgid "system"
+msgstr "systemet"
+
+msgid "resource"
+msgstr "resurs"
+
+msgid "Identifier of resource in the access control system (if any)"
+msgstr "Identifierare av resursen i åtkomstkontrollsystemet"
+
+msgid "Driver-specific configuration"
+msgstr "Driver-specifik konfiguration"
+
+msgid "Internal driver data"
+msgstr "Intern driver data"
+
+msgid "reservation leeway"
+msgstr "bokningsrum"
+
+msgid ""
+"How many minutes before and after the reservation the access will be allowed"
+msgstr "Hur många minuter före och efter bokningen kommer åtkomst tillåtas"
+
+msgid "Notifications"
+msgstr "Notifikationer"
+
+msgid "Reservation requested"
+msgstr "Bokning begärd"
+
+msgid "Reservation requested official"
+msgstr "Officiell begärd bokning"
+
+msgid "Reservation cancelled"
+msgstr "Bokning avbruten"
+
+msgid "Reservation confirmed"
+msgstr "Bokning godkänd"
+
+msgid "Reservation created"
+msgstr "Bokning skapad"
+
+msgid "Reservation denied"
+msgstr "Bokning avböjd"
+
+msgid "Reservation created with access code"
+msgstr "Bokning skapad med behörighetskod"
+
+msgid "Access code was created for a reservation"
+msgstr "Åtkomstkod skapades för en reservation"
+
+msgid "Catering order created"
+msgstr "Catering beställning skapad"
+
+msgid "Catering order modified"
+msgstr "Catering beställning ändrad"
+
+msgid "Catering order deleted"
+msgstr "Catering beställning raderad"
+
+msgid "Reservation comment created"
+msgstr "Bokningskommentar skapad"
+
+msgid "Catering order comment created"
+msgstr "Catering beställning komment skapad"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Short message"
+msgstr "Kort meddelande"
+
+msgid "Short notification text for e.g. SMS messages"
+msgstr "Kort meddelande för ex. SMS"
+
+msgid "Subject"
+msgstr "Ämne"
+
+msgid "Subject for email notifications"
+msgstr "Ämne för e-post meddelande"
+
+msgid "Body"
+msgstr ""
+
+msgid "Text body for email notifications"
+msgstr "Text för e-post notifikationer"
+
+msgid "HTML body"
+msgstr "HTML text"
+
+msgid "HTML body for email notifications"
+msgstr "HTML text för e-post notifikationer"
+
+msgid "Notification template"
+msgstr "Meddelande mall"
+
+msgid "Notification templates"
+msgstr "Meddelande mallar"
+
+msgid "All the resources must have manual reservation confirmation disabled."
+msgstr "Alla resurser måste ha manuell bokningsbekräftelse inaktiverad"
+
+msgid "price"
+msgstr "pris"
+
+msgid "resources"
+msgstr "resurser"
+
+msgid "created at"
+msgstr "skapad vid"
+
+msgid "modified at"
+msgstr "modifierad kl"
+
+msgid "price period"
+msgstr "prisperiod"
+
+msgid "product type"
+msgstr "produkttyp"
+
+msgid "price including VAT"
+msgstr "pris inklusive moms"
+
+msgid "unit price"
+msgstr "enhetspris"
+
+msgid "tax percentage"
+msgstr "skatt procent"
+
+msgid "timestamp"
+msgstr "tidsstämpel"
+
+msgid "user"
+msgstr "användar"
+
+msgid "Cannot exceed max product quantity"
+msgstr "Kan inte överskrida den maximala produktkvantiteten"
+
+msgid "This product isn't available on the resource."
+msgstr "Den här produkten är inte tillgänglig på resursen."
+
+msgid "Begin time must be before end time"
+msgstr "Starttid måste vara före sluttid"
+
+msgid "At least one order line required."
+msgstr "Minst en beställningsrad krävs."
+
+msgid "Order lines cannot contain duplicate products."
+msgstr "Orderrader kan inte innehålla duplicerade produkter."
+
+msgid "The order must contain at least one product of type \"rent\"."
+msgstr "Beställningen måste innehålla minst en produkt av typen \"hyra\"."
+
+msgid "rent"
+msgstr "hyra"
+
+msgid "extra"
+msgstr "extra"
+
+msgid "per period"
+msgstr "per period"
+
+msgid "fixed"
+msgstr "fixerad"
+
+msgid "internal product ID"
+msgstr "intern produkt-ID"
+
+msgid "archived_at"
+msgstr "arkiverades kl"
+
+msgid "type"
+msgstr "typ"
+
+msgid "SKU"
+msgstr ""
+
+msgid "name"
+msgstr "namn"
+
+msgid "description"
+msgstr "beskrivning"
+
+msgid "price type"
+msgstr "pris typ"
+
+msgid "max quantity"
+msgstr "max kvantitet"
+
+msgid "product"
+msgstr "produkt"
+
+msgid "products"
+msgstr "produkter"
+
+msgid "This field requires a non-zero value when price type is \"per period\"."
+msgstr ""
+"Detta fält kräver ett värde som inte är noll när pristypen är per period"
+
+msgid "waiting"
+msgstr "väntar"
+
+msgid "confirmed"
+msgstr "godkänd"
+
+msgid "rejected"
+msgstr "avvisade"
+
+msgid "expired"
+msgstr "utgånget"
+
+msgid "state"
+msgstr "län"
+
+msgid "order number"
+msgstr "ordernummer"
+
+msgid "reservation"
+msgstr "reservation"
+
+msgid "order"
+msgstr "beställning"
+
+msgid "orders"
+msgstr "beställningar"
+
+msgid "quantity"
+msgstr "kvantitet"
+
+msgid "order line"
+msgstr "orderrad"
+
+msgid "order lines"
+msgstr "beställningslinjer"
+
+msgid "order log entry"
+msgstr "beställ logg post"
+
+msgid "state change"
+msgstr "statlig förändring"
+
+msgid "order log entries"
+msgstr "beställ loggposter"
+
+msgid "hour"
+msgstr "timme"
+
+#, python-brace-format
+msgid "{hours} hours"
+msgstr "{hours} timmar"
+
+msgid "No reservations."
+msgstr "Ingen bokning"
+
+msgid "No information available"
+msgstr "Ingen information tillgänglig"
+
+msgid "No reservations"
+msgstr "Ingen bokning"
+
+#, python-brace-format
+msgid "Unit \"{pk_value}\" does not exist."
+msgstr "Enhet \"{pk_value}\" existerar inte."
+
+msgid "Either unit or a valid resource id is required."
+msgstr "Enhet eller resurs är obligatorisk."
+
+msgid "No resources found"
+msgstr "Inga resurser hittades"
+
+msgid "day-report"
+msgstr "dags rapport"
+
+msgctxt "report"
+msgid "Catering order"
+msgstr "Catering beställning"
+
+msgid "pcs."
+msgstr "st."
+
+msgid "Too many (> 1000) reservations to return"
+msgstr "För många reservationer att återvända"
+
+msgid "reservation-details"
+msgstr "Bokningsdetaljer"
+
+msgid "Resource group"
+msgstr "Resursgrupp"
+
+msgid "Resource groups"
+msgstr "Resursgrupper"
+
+msgid "Import Service Map"
+msgstr "Importera servicekarta"
+
+msgid "Import Kirkanta"
+msgstr "Importera Kirkanta"
+
+msgid "Required fields must be a subset of supported fields"
+msgstr "Obligatoriska fält måste vara en delmängd av stödda fält"
+
+msgid "Import municipalities"
+msgstr "Importera kommuner"
+
+msgid "Import divisions"
+msgstr "Importera zoner"
+
+msgid "HH:mm"
+msgstr "HH:mm"
+
+msgid "Illegal state change"
+msgstr "Otillåten förändring av tillstånd"
+
+msgid "You are not allowed to make reservations in this resource."
+msgstr "Du får inte göra reservationer i denna resurs."
+
+msgid "You cannot make a reservation in the past"
+msgstr "Det går inte att göra reservationer i det förgångna."
+
+#, python-format
+msgid "The resource is reservable only before %(datetime)s"
+msgstr "Resursen kan endast reserveras före %(datetime)s"
+
+#, python-format
+msgid "The resource is reservable only after %(datetime)s"
+msgstr "Resursen kan endast reserveras efter %(datetime)s"
+
+msgid "Only allowed to be set by resource managers"
+msgstr "Tillåts endast ställas in av resurshanterare"
+
+msgid "You are not allowed to make a reservation of this type"
+msgstr "Du får inte boka den här typen"
+
+msgid "Only allowed to be set by staff members"
+msgstr "Endast tillåtet att fastställas av personal. "
+
+msgid "This field cannot have a value with this resource"
+msgstr "Det här fältet kan inte ha ett värde med den här resursen"
+
+msgid "This field cannot be changed"
+msgstr "Detta fält kan inte modifieras"
+
+#, python-format
+msgid "Patching of field %(field)s is not allowed"
+msgstr "Uppdatering av fältet %(field)s är inte tillåtet med patch-metoden"
+
+#, python-brace-format
+msgid "Invalid pk \"{pk_value}\" - object does not exist."
+msgstr "Felaktig pk \"{pk_value}\" - objektet existerar inte."
+
+#, python-format
+msgid "Invalid value in filter %(filter)s"
+msgstr "Felaktigt värde i filter %(filter)s"
+
+msgid "reservations"
+msgstr "reservationer"
+
+msgid "Resource app"
+msgstr "Resurs app"
+
+msgid "unit group administrator"
+msgstr "Enhetsgrupp administratör"
+
+msgid "unit administrator"
+msgstr "Enhets administratör"
+
+msgid "unit manager"
+msgstr "Enhets chef"
+
+msgid "unit viewer"
+msgstr "Enhets visare"
+
+msgid "Time of modification"
+msgstr "Modifieringstidpukt"
+
+msgid "accessibility viewpoint"
+msgstr "syn på tillgänglighet"
+
+msgid "accessibility viewpoints"
+msgstr "synpunkter på tillgänglighet"
+
+msgid "Accessibility summary value"
+msgstr "Sammanfattningsvärde för tillgänglighet"
+
+msgid "Ordering priority"
+msgstr "Ordning prioritet"
+
+msgid "accessibility value"
+msgstr "tillgänglighetsvärde"
+
+msgid "accessibility values"
+msgstr "tillgänglighetsvärden"
+
+msgid "Resource Accessibility"
+msgstr "Resurstillgänglighet"
+
+msgid "Resource"
+msgstr "Resurs"
+
+msgid "Accessibility shortage count"
+msgstr "Antal tillgänglighetsbrister"
+
+msgid "Resource ordering priority"
+msgstr "Resursordningsprioritet"
+
+msgid "resource accessibility summary"
+msgstr "resurstillgänglighetsöversikt"
+
+msgid "resource accessibility summaries"
+msgstr "resurstillgänglighetsöversikter"
+
+msgid "unit accessibility summary"
+msgstr "enhettillgänglighetsöversikt"
+
+msgid "unit accessibility summaries"
+msgstr "enhettillgänglighetsöversikter"
+
+msgid "open"
+msgstr "öppen"
+
+msgid "closed"
+msgstr "stängd"
+
+msgid "-"
+msgstr "-"
+
+msgid "Unit"
+msgstr "Enhet"
+
+msgid "Start date"
+msgstr "Start datum"
+
+msgid "End date"
+msgstr "Slutdatum"
+
+msgid "Closed"
+msgstr "Stängd"
+
+msgid "period"
+msgstr "period"
+
+msgid "periods"
+msgstr "perioder"
+
+msgid "You must set 'resource' or 'unit'"
+msgstr "Du måste ange en resurs eller en enhet"
+
+msgid "You must set either 'resource' or 'unit', but not both"
+msgstr "Du måste ange antingen en resurs eller en enhet, men inte båda"
+
+msgid "You must set 'start' and 'end' fields."
+msgstr "Start och slut fälten måste innehålla ett värde"
+
+msgid "Monday"
+msgstr "måndag"
+
+msgid "Tuesday"
+msgstr "tisdag"
+
+msgid "Wednesday"
+msgstr "onsdag"
+
+msgid "Thursday"
+msgstr "torsdag"
+
+msgid "Friday"
+msgstr "fredag"
+
+msgid "Saturday"
+msgstr "lördag"
+
+msgid "Sunday"
+msgstr "söndag"
+
+msgid "Period"
+msgstr "period"
+
+msgid "Weekday"
+msgstr "veckodag"
+
+msgid "Time when opens"
+msgstr "Öppnar"
+
+msgid "Time when closes"
+msgstr "Stänger"
+
+msgid "Range between opens and closes"
+msgstr "Tid mellan öppnar och stänger"
+
+msgid "day"
+msgstr "dag"
+
+msgid "days"
+msgstr "dagar"
+
+msgid "Modified by"
+msgstr "Modifierad av"
+
+msgid "equipment category"
+msgstr "utrsutningskatergori"
+
+msgid "equipment categories"
+msgstr "utrsutningskatergorier"
+
+msgid "Category"
+msgstr "Katergori"
+
+msgctxt "singular"
+msgid "equipment"
+msgstr "utrustning"
+
+msgctxt "plural"
+msgid "equipment"
+msgstr "utrustning"
+
+msgid "equipment alias"
+msgstr "utrustning alias"
+
+msgid "equipment aliases"
+msgstr "utrustning alias"
+
+msgid "Can approve reservation"
+msgstr "Kan godkänna reservation"
+
+msgid "Can make reservations"
+msgstr "Kan göra reservationer"
+
+msgid "Can modify reservations"
+msgstr "Kan modifiera reservationer"
+
+msgid "Can make reservations outside opening hours"
+msgstr "Kan göra reservationer utanför öppettider"
+
+msgid "Can view reservation access code"
+msgstr "Kan se reservationers behörighetskod"
+
+msgid "Can view reservation extra fields"
+msgstr "Kan se reservationers extra fält"
+
+msgid "Can view reservation user"
+msgstr "Kan se reservationers användare"
+
+msgid "Can access reservation comments"
+msgstr "Kan ser kommentarer i reservationer"
+
+msgid "Can create comments for a reservation"
+msgstr "Kan skapa kommentarer för en reservation"
+
+msgid "Can view reservation catering orders"
+msgstr "Kan visa reservationer catering beställningar"
+
+msgid "Can modify reservation catering orders"
+msgstr "Kan redigera reservation catering beställningar"
+
+msgid "Can view reservation product orders"
+msgstr "Kan visa reservationer produkt beställningar"
+
+msgid "Can modify paid reservations"
+msgstr "Kan modifiera betalda reservationer"
+
+msgid "Can bypass payment for paid reservations"
+msgstr "Kan åsidosätta betalningen av bokningen"
+
+msgid "Can create a reservation that is a staff event"
+msgstr "Kan skapa en reservation som är en personalhändelse"
+
+msgid "Can create reservations of a non-normal type"
+msgstr "Kan skapa reservationer av en icke-normal typ"
+
+msgid "Can bypass manual confirmation requirement for resources"
+msgstr "Kan kringgå manuellt bekräftelsekrav för resurser"
+
+msgid "Can create reservations for other registered users"
+msgstr "Kan skapa reservationer för andra registrerade användare"
+
+msgid "Can create overlapping reservations"
+msgstr "Kan skapa överlappande reservationer"
+
+msgid "Can ignore resources max reservations per user rule"
+msgstr "Kan ignorera resurser max reservationer per användarregel"
+
+msgid "Can ignore resources max period rule"
+msgstr "Kan ignorera resursens maximala periodregel"
+
+msgid "created"
+msgstr "skapad"
+
+msgid "denied"
+msgstr "nekad"
+
+msgid "waiting for payment"
+msgstr "väntar på utbetalning"
+
+msgid "Normal reservation"
+msgstr "Normal reservation"
+
+msgid "Resource blocked"
+msgstr "Resurs blockerad"
+
+msgid "Begin time"
+msgstr "Påbörja"
+
+msgid "End time"
+msgstr "Avsluta"
+
+msgid "Length of reservation"
+msgstr "Reservationens längd"
+
+msgid "User"
+msgstr "Användare"
+
+msgid "State"
+msgstr "Tillstånd"
+
+msgid "Approver"
+msgstr "Godkännare"
+
+msgid "Is staff event"
+msgstr "Verkets eget evenemang"
+
+msgid "Access code"
+msgstr "Behörighetskod"
+
+msgid "Event subject"
+msgstr "Evenemang ämne"
+
+msgid "Event description"
+msgstr "Evenemang beskrivning"
+
+msgid "Number of participants"
+msgstr "Antalet deltagare"
+
+msgid "Participants"
+msgstr "Deltagare"
+
+msgid "Host name"
+msgstr "Värdnamn"
+
+msgid "Reservation extra questions"
+msgstr "Extra frågor för bokning"
+
+msgid "Reserver name"
+msgstr "Reservnamn"
+
+msgid "Reserver ID (business or person)"
+msgstr "Reserv ID (företag eller person)"
+
+msgid "Reserver email address"
+msgstr "Reserverares email adress"
+
+msgid "Reserver phone number"
+msgstr "Reserverares telefonnummer"
+
+msgid "Reserver address street"
+msgstr "Reserverares gatuadress"
+
+msgid "Reserver address zip"
+msgstr "Reserverares postnummer"
+
+msgid "Reserver address city"
+msgstr "Reserverares postort"
+
+msgid "Company"
+msgstr "Företag"
+
+msgid "Billing first name"
+msgstr "Fakturering förnamn"
+
+msgid "Billing last name"
+msgstr "Fakturering efternamn"
+
+msgid "Billing email address"
+msgstr "Fakturering e-postadress"
+
+msgid "Billing phone number"
+msgstr "Fakturering telefonnummer"
+
+msgid "Billing address street"
+msgstr "Fakturering gatuadress"
+
+msgid "Billing address zip"
+msgstr "Fakturering gatuadress postnummer"
+
+msgid "Billing address city"
+msgstr "Fakturering gatuadress stad"
+
+msgid "Original ID"
+msgstr "Original ID"
+
+msgid "You must end the reservation after it has begun"
+msgstr "Du måste avsluta bokningen när den har börjat"
+
+msgid "Begin and end time must match time slots"
+msgstr "Början och sluttiden måste matcha tidsluckor"
+
+msgid "This unit does not allow overlapping reservations for its resources"
+msgstr ""
+"Den här enheten tillåter inte överlappande reservationer för sina resurser"
+
+msgid "The resource is already reserved for some of the period"
+msgstr "Resursen är redan reserverad under en del av perioden"
+
+#, python-format
+msgid "The minimum reservation length is %(min_period)s"
+msgstr "Minsta bokningstid är %(min_period)s"
+
+#, python-format
+msgid "The minimum reservation length is %(slot_size)s"
+msgstr "Minsta bokningstid är %(slot_size)s"
+
+msgid "Field name"
+msgstr "namnfält"
+
+msgid "Reservation metadata field"
+msgstr "Metadatafält för reservation"
+
+msgid "Reservation metadata fields"
+msgstr "Metadatafält för reservation"
+
+msgid "Supported fields"
+msgstr "Fält som stöds"
+
+msgid "Required fields"
+msgstr "Obligatoriska fält"
+
+msgid "Reservation metadata set"
+msgstr "Metadata för reservation"
+
+msgid "Reservation metadata sets"
+msgstr "Metadatauppsättningar för reservation"
+
+msgid "Confirmed reservation"
+msgstr "Bekräftad reservation"
+
+msgid "Requested reservation"
+msgstr "Begärd bokning"
+
+msgid "Own reservation"
+msgstr "Egen reservation"
+
+msgid "Reservation type"
+msgstr "Bokningstyp"
+
+msgid "Reservation cancellation reason category"
+msgstr "Skälkategori för annullering av bokning"
+
+msgid "Reservation cancellation reason categories"
+msgstr "Skälkategorier för annullering av bokning"
+
+msgid "Reservation cancellation reason"
+msgstr "Skäl för annullering av bokning"
+
+msgid "Reservation cancellation reasons"
+msgstr "Skäl för annullering av bokning"
+
+msgid "Invalid value"
+msgstr "Ogiltigt värde"
+
+msgid "Space"
+msgstr "Utrymme"
+
+msgid "Person"
+msgstr "Person"
+
+msgid "Item"
+msgstr "Föremål"
+
+msgid "Main type"
+msgstr "Huvudtyp"
+
+msgid "resource type"
+msgstr "typ av resurs"
+
+msgid "resource types"
+msgstr "typ av resurser"
+
+msgid "Parent"
+msgstr "Förälder"
+
+msgid "Public"
+msgstr "Offentlig"
+
+msgid "purpose"
+msgstr "syfte"
+
+msgid "purposes"
+msgstr "syften"
+
+msgid "Payment terms"
+msgstr "Betalnings villkor"
+
+msgid "Generic terms"
+msgstr "Allmänna villkor"
+
+msgid "Terms type"
+msgstr "Typ av villkor"
+
+msgctxt "singular"
+msgid "terms of use"
+msgstr "villkor"
+
+msgctxt "plural"
+msgid "terms of use"
+msgstr "villkor"
+
+msgid "None"
+msgstr "Ingen"
+
+msgid "Weak"
+msgstr "Svag"
+
+msgid "Strong"
+msgstr "Stark"
+
+msgid "4-digit PIN code"
+msgstr "4-siffrig PIN-kod"
+
+msgid "6-digit PIN code"
+msgstr "6-siffrig PIN-kod"
+
+msgid "Hourly"
+msgstr "Per timme"
+
+msgid "Daily"
+msgstr "Per dag"
+
+msgid "Weekly"
+msgstr "Per vecka"
+
+msgid "Fixed"
+msgstr "Fixerad"
+
+msgid "Resource type"
+msgstr "Resurs typ"
+
+msgid "Purposes"
+msgstr "Syften"
+
+msgid "Need manual confirmation"
+msgstr "Kräver manuell bekräftelse"
+
+msgid "Authentication"
+msgstr "Autentisering"
+
+msgid "People capacity"
+msgstr "Kapacitet"
+
+msgid "Area (m2)"
+msgstr "Yta (m2)"
+
+msgid "Location"
+msgstr "Plats"
+
+msgid "Minimum reservation time"
+msgstr "Minsta bokningstid"
+
+msgid "Maximum reservation time"
+msgstr "Längsta bokningstid"
+
+msgid "Slot size for reservation time"
+msgstr "Spårstorlek för bokningstid"
+
+msgid "Equipment"
+msgstr "Utrustning"
+
+msgid "Maximum number of active reservations per user"
+msgstr "Högsta antalet aktiva bokningar per användare"
+
+msgid "Reservable"
+msgstr "Bokningsbar"
+
+msgid "Reservation info"
+msgstr "Bokningsinfo"
+
+msgid "Responsible contact info"
+msgstr "Ansvarig person"
+
+msgid "Specific terms"
+msgstr "Specifika villkor"
+
+msgid "Extra content to \"reservation requested\" notification"
+msgstr "Extra innehåll till \"reservation begärd\" anmälan"
+
+msgid "Extra content to \"reservation confirmed\" notification"
+msgstr "Extra innehåll till \"reservation godkänd\" anmälan"
+
+msgid "Min price"
+msgstr "Lägsta pris"
+
+msgid "Max price"
+msgstr "Maxpris"
+
+msgid "Access code type"
+msgstr "Typ av behörighetskod"
+
+msgid "Generate access codes"
+msgstr "Generera behörighetskoder"
+
+msgid "Should access codes generated by the general system"
+msgstr "Bör åtkomstkoder genereras av det allmänna systemet"
+
+msgid "Reservable max. days in advance"
+msgstr "Bokningsbar dagar i förväg"
+
+msgid "Reservable min. days in advance"
+msgstr "Dagar tills bokning är möjlig"
+
+msgid "External reservation URL"
+msgstr "Extern kalenderadress"
+
+msgid ""
+"A link to an external reservation system if this resource is managed "
+"elsewhere"
+msgstr ""
+"En URL till ett externt bokningssystem om den här resursen hanteras "
+"annorstädes"
+
+msgid "You cannot make a multi day reservation"
+msgstr "Du kan inte boka flera dagar"
+
+msgid "You must start and end the reservation during opening hours"
+msgstr "Du måste starta och avsluta bokningen under öppettiderna"
+
+#, python-format
+msgid "The maximum reservation length is %(max_period)s"
+msgstr "Den maximala bokningslängden är %(max_period)s"
+
+msgid "Maximum number of active reservations for this resource exceeded."
+msgstr "Maximalt antal aktiva reservationer för denna resurs överskred"
+
+msgid "This value cannot be greater than max price"
+msgstr "Detta värde kan inte vara högre än maxpriset"
+
+msgid "This value must be a multiple of slot_size"
+msgstr "Detta värde måste vara ett flertal av slot_size"
+
+msgid "This cannot be enabled because the resource has product(s)."
+msgstr "Detta kan inte aktiveras eftersom resursen har produkter"
+
+msgid "Main photo"
+msgstr "Huvudbild"
+
+msgid "Ground plan"
+msgstr "Grundritning"
+
+msgid "Map"
+msgstr "Karta"
+
+msgid "Other"
+msgstr "Annan"
+
+msgid "Caption"
+msgstr "Bildtext"
+
+msgid "Image"
+msgstr "Bild"
+
+msgid "Cropping"
+msgstr "Avskärning"
+
+msgid "Sort order"
+msgstr "Sortera efter"
+
+msgid "resource image"
+msgstr "resurs bild"
+
+msgid "resource images"
+msgstr "resurs bilder"
+
+msgctxt "singular"
+msgid "resource equipment"
+msgstr "resrus utrustning"
+
+msgctxt "plural"
+msgid "resource equipment"
+msgstr "resurs utrustning"
+
+msgid "Identifier"
+msgstr "Identifierare"
+
+msgid "Resources"
+msgstr "Resurser"
+
+msgid "Overlapping opening hours"
+msgstr "Överlappande öppettider"
+
+msgid "Time zone"
+msgstr "Tidzon"
+
+msgid "Manager email"
+msgstr ""
+
+msgid "Street address"
+msgstr "Gatuadress"
+
+msgid "Postal code"
+msgstr "Postkod"
+
+msgid "Phone number"
+msgstr "Telefonnummer"
+
+msgid "Email"
+msgstr "E-post"
+
+msgid "WWW link"
+msgstr "WWW länk"
+
+msgid "Full postal address"
+msgstr "Fullständig adress"
+
+msgid "Municipality"
+msgstr "Kommun"
+
+msgid "Picture URL"
+msgstr "Bild URL"
+
+msgid "Picture caption"
+msgstr "Bilddtext"
+
+msgid "External data source"
+msgstr "Extern datakälla"
+
+msgid "External data source for opening hours"
+msgstr "Extern datakälla för öppettider"
+
+msgid "Disallow overlapping reservations in this unit"
+msgstr "Blockera överlappande reservationer i den här enheten"
+
+msgid "unit"
+msgstr "enhet"
+
+msgid "units"
+msgstr "enheter"
+
+msgid "subject of the authorization"
+msgstr "föremål för auktoriserad"
+
+msgid "authorization level"
+msgstr "auktoriseringsnivå"
+
+msgid "authorized user"
+msgstr "auktoriserad användare"
+
+msgid "unit authorization"
+msgstr "enhetsbehörighet"
+
+msgid "unit authorizations"
+msgstr "enhetstillstånd"
+
+msgid "Namespace"
+msgstr ""
+
+msgid "Value"
+msgstr "Värde"
+
+msgid "unit identifier"
+msgstr "identifierare av enhet"
+
+msgid "unit identifiers"
+msgstr "identifierare av enhet"
+
+msgid "unit group"
+msgstr "enhetgrupp"
+
+msgid "unit groups"
+msgstr "enhetgrupper"
+
+msgid "unit group authorization"
+msgstr "enhetsgruppstillstånd"
+
+msgid "unit group authorizations"
+msgstr "enhetsgruppstillstånd"
+
+#, python-format
+msgid "%(count)d hour"
+msgid_plural "%(count)d hours"
+msgstr[0] "timme"
+msgstr[1] "timmar"
+
+#, python-format
+msgid "%(count)d minute"
+msgid_plural "%(count)d minutes"
+msgstr[0] "minut"
+msgstr[1] "minuter"
+
+msgid "Home"
+msgstr "Hem"
+
+msgid "Add Another"
+msgstr "Lägg till"
+
+msgid "Delete Item"
+msgstr "Radera sak"
+
+msgid "Finnish"
+msgstr "finska"
+
+msgid "English"
+msgstr "engelsk"
+
+msgid "Swedish"
+msgstr "svenska"
+
+msgid "yyyy-mm-dd"
+msgstr "dd.mm.yyyy"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Ingen"
+
+msgid "Hidden"
+msgstr "Dold"
+
+msgid "Published"
+msgstr "Offentlig"
+
+msgid "Can not be reserved"
+msgstr "Kan inte reserveras"
+
+msgid "Bookable"
+msgstr "Kan reserveras"
+
+msgid "Please check the opening hours."
+msgstr "Kontrollera öppethållningstider"
+
+msgid "Staff account"
+msgstr "Personalkonto"
+
+msgid "Allows user to grant permissions to units"
+msgstr "Tillåter användare att bevilja behörigheter till behörigheter"
+
+msgid ""
+"You can't add, change or delete permissions to unit you are not admin of"
+msgstr ""
+"Du kan inte bevilja, redigera eller radera behörigheter till enheter som du "
+"inte är administratör för"
+
+msgid "Log out"
+msgstr "Logga ut"
+
+msgid "User management"
+msgstr "Användarhantering"
+
+msgid "Contact us"
+msgstr "Kontakta oss"
+
+msgid "Instructions"
+msgstr "Instruktioner"
+
+msgid "Copy to next"
+msgstr "Kopiera till nästa"
+
+msgid "New period"
+msgstr "Ny tidsperiod"
+
+msgid "Copy time period"
+msgstr "Kopiera tidsperiod"
+
+msgid "Edit time period"
+msgstr "Modifiera tidsperiod"
+
+msgid "Time interval"
+msgstr "Tidsintervall"
+
+msgid "Remove time period"
+msgstr "Ta bort tidsperiod"
+
+msgid "Tarkista seuraavat virheet"
+msgstr "Kontrollera följande fel"
+
+msgid "Choose image"
+msgstr "Välj bild"
+
+msgid "Remove image"
+msgstr "Radera bild"
+
+msgid "Log in"
+msgstr "Logga in"
+
+msgid "You are not allowed to use Respa Admin."
+msgstr "Du får inte använda Respa Admin."
+
+#, python-format
+msgid ""
+"\n"
+"                Sorry, but \"%(user)s\" is not allowed to use Respa Admin.\n"
+"                Please log in with a different account.\n"
+"                "
+msgstr ""
+
+msgid "Login failed"
+msgstr "Inloggningen misslyckades"
+
+msgid "Username"
+msgstr "Användarnamn"
+
+msgid "Password"
+msgstr "Lösenord"
+
+msgid "Log in with Django account"
+msgstr "Logga in med Django konto"
+
+msgid "All resources I manage"
+msgstr "Alla mina resurser"
+
+msgid "Add a new resource"
+msgstr "Skapa ny resurs"
+
+msgid "Search"
+msgstr "Sök"
+
+msgid "All units I manage"
+msgstr "Alla mina enheter"
+
+msgid "All resources"
+msgstr "Alla resurser"
+
+msgid "Filter"
+msgstr "Filtrera"
+
+msgid "Filter by type"
+msgstr "Filtrera enligt typ"
+
+msgid "Filter by unit"
+msgstr "Filtrera enligt plats"
+
+msgid "Availability"
+msgstr "Tillgänglighet"
+
+msgid "Visibility"
+msgstr "Synlighet"
+
+msgid "Edit"
+msgstr "Redigera"
+
+msgid "Unit management"
+msgstr "Enhetshantering"
+
+msgid "Staff"
+msgstr "Personal"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Viewer"
+msgstr "Visare"
+
+msgid "Manager"
+msgstr "Chef"
+
+msgid "Can approve reservations"
+msgstr "Kan godkänna bokningen"
+
+msgid "Edit permissions"
+msgstr "Redigera behörigheter"
+
+msgid "Users by search term"
+msgstr "Användarsökning med term"
+
+msgid "Clear search"
+msgstr "Rensa sökning"
+
+msgid "Save"
+msgstr "Spara"
+
+msgid "Cancel"
+msgstr "Avbryt"
+
+msgid "Add permissions"
+msgstr "Lägg till behörigheter"
+
+msgid "Accessibility"
+msgstr "Tillgänglighet"
+
+msgid "Accessibility data is entered in the Accessibility Application."
+msgstr "Tillgänglighetsdata anges i tillgänglighetsansökan."
+
+msgid "Enter accessibility data"
+msgstr "Ange tillgänglighetsdata"
+
+msgid "Booking information"
+msgstr "Bokningsinformation"
+
+msgid "*Mandatory fields"
+msgstr "*Obligatoriska fält"
+
+msgid "Additional information before calendar."
+msgstr "Ytterligare information"
+
+msgid "E-mail notifications"
+msgstr "E-post notifikationer"
+
+msgid "A notification will be sent when a space is booked."
+msgstr "Ett meddelande kommer att skickas då ett utrymme har bokats."
+
+msgid "Extra questions for reservation"
+msgstr "Extra frågor för bokning"
+
+msgid "Choose from the list below"
+msgstr "Välj från listan nedan"
+
+msgid "General information"
+msgstr "Allmän information"
+
+msgid "*Mandatory Fields"
+msgstr "*Obligatoriska fält"
+
+msgid "Name and description"
+msgstr "Namn och beskrivning"
+
+msgid "Contact person"
+msgstr "Kontaktperson"
+
+msgid ""
+"Contact person information is shown when customer cancels manually handled "
+"reservations."
+msgstr ""
+"Kontaktpersoninformation visas när kunden avbokar manuellt reservationer."
+
+msgid "External calendar"
+msgstr "Externt kalendersystem"
+
+msgid "Images"
+msgstr "Bilder"
+
+msgid "You can only choose one main image."
+msgstr "Du kan endast välja en huvudbild."
+
+msgid "Add image"
+msgstr "Lägg till bild"
+
+msgid "Translations"
+msgstr "Översättningar"
+
+msgid "Authentication, terms and price"
+msgstr "Autentisering, villkor och pris"
+
+msgid "Opening hours"
+msgstr "Öppettider"
+
+msgid "Add new time period"
+msgstr "Lägg till en ny tidsperiod"
+
+msgid "Add general time period"
+msgstr "Lägg till allmäm tidsperiod"
+
+msgid "Permissions"
+msgstr "Behörigheter"
+
+msgid "Manager/admin of unit"
+msgstr "Enhetens admin/chef"
+
+msgid "Booking form"
+msgstr "Bokningsformulär"
+
+msgid "Pricing"
+msgstr "Pris"
+
+msgid "The space is free of charge"
+msgstr "Detta utrymme är gratis"
+
+msgid "Functions"
+msgstr "Funktioner"
+
+msgid "View resource"
+msgstr "Visa resurs"
+
+msgid "User profile"
+msgstr "Användarprofil"
+
+msgid "All units"
+msgstr "Alla enheter"
+
+msgid "Editable"
+msgstr "Redigerbar"
+
+msgid "Can be edited"
+msgstr "Kan redigeras"
+
+msgid "Can not be edited"
+msgstr "Kan inte redigeras"
+
+msgid "Contact"
+msgstr "Kontaktuppgifter"
+
+msgid "View unit"
+msgstr "Visa enhet"
+
+msgid "Settings"
+msgstr "Inställningar"
+
+msgid "Search for users"
+msgstr "Sök efter användare"
+
+msgid "You can't remove staff status from user with existing permissions"
+msgstr ""
+"Det går inte att ta bort personalkontot från användaren med behörigheter "
+"till enheten"
+
+msgid "Failed to save. Please check the form for errors."
+msgstr "Det gick inte att spara. Kontrollera formuläret för fel."
+
+msgid "Edit resource"
+msgstr "Modifiera resurs"
+
+msgid "Create new resource"
+msgstr "Skapa ny resurs"
+
+msgid "Unit saved"
+msgstr "Enheten sparad"
+
+msgid "Edit unit"
+msgstr "Redigera enhet"
+
+msgid "Create new unit"
+msgstr "Skapa ny enhet"
+
+msgid "Saving failed. Check error in the form."
+msgstr "Sparningen misslyckades. Visa fel i formuläret."
+
+msgid "Edit Unit"
+msgstr "Redigera enhet"
+
+msgid "a descriptive name for this Exchange configuration"
+msgstr "ett beskrivande namn för denna Exchange konfiguration"
+
+msgid "EWS URL"
+msgstr "EWS URL"
+
+msgid ""
+"the URL to the Exchange Web Service (e.g. https://contoso.com/EWS/Exchange."
+"asmx)"
+msgstr ""
+"URL till Exchange Web Service (e.g. https://contoso.com/EWS/Exchange.asmx)"
+
+msgid "username"
+msgstr "användarnamn"
+
+msgid "the service user to authenticate as, in domain\\username format"
+msgstr "tjänsten användare att autentisera som, typ domain\\användarnamn"
+
+msgid "password"
+msgstr "lösenord"
+
+msgid "the user's password (stored as plain-text)"
+msgstr "användarens lösenord (lagras som vanlig text)"
+
+msgid "enabled"
+msgstr "aktiverad"
+
+msgid ""
+"whether synchronization is enabled at all against this Exchange instance"
+msgstr "bestämmer om synkronisering är aktiverad på denna instans"
+
+msgid "Exchange configuration"
+msgstr "Exchange konfiguration"
+
+msgid "Exchange configurations"
+msgstr "Exchange konfigurationer"
+
+msgid "sync Exchange to Respa"
+msgstr "synkronisera Exchange till Respa"
+
+msgid ""
+"if disabled, events will not be synced from the Exchange calendar to Respa"
+msgstr ""
+"om inaktiverad, händelser kommer inte synkroniseras från Exchange kalendern "
+"till Respa"
+
+msgid "sync Respa to Exchange"
+msgstr "synkronisera Respa till Exchange"
+
+msgid ""
+"if disabled, new events will not be synced from Respa to the Exchange "
+"calendar; pre-existing events continue to be updated"
+msgstr ""
+"om inaktiverad, nya händelser kommer inte att synkroniseras från Respa till "
+"Exchange kalender; förevarande händelser fortsätter att uppdateras"
+
+msgid "principal email"
+msgstr "viktigaste email"
+
+msgid "the email address for this resource in Exchange"
+msgstr "email adressen för den här resursen i Exchange"
+
+msgid "Exchange resource"
+msgstr "Exchange resursen"
+
+msgid "Exchange resources"
+msgstr "Exchange resurser"
+
+msgid "Exchange reservation"
+msgstr "Exchange reservation"
+
+msgid "Exchange reservations"
+msgstr "Exchange reservationer"
+
+msgid "Favorite resources"
+msgstr "Favorit resurser"
+
+msgid "staff status"
+msgstr "personal status"
+
+msgid ""
+"Designates whether the user can log into Django Admin or Respa Admin sites."
+msgstr ""
+"anger om användaren kan logga in på Django Admin eller Respa Admin "
+"webbplatser."
+
+msgid "general administrator status"
+msgstr "universell administratör"
+
+msgid ""
+"Designates whether the user is a General Administrator with special "
+"permissions to many objects within Respa. This is almost as powerful as "
+"superuser."
+msgstr ""
+"anger om användaren är en General Administrator med särskilda behörigheter "
+"för många objekt inom Respa"

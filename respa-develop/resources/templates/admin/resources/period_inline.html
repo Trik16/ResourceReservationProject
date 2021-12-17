@@ -1,0 +1,113 @@
+{% load i18n grp_tags admin_urls %}
+
+<!-- group -->
+<div class="grp-group grp-tabular{% if inline_admin_formset.opts.classes %} {{ inline_admin_formset.opts.classes|join:" " }}{% endif %}"
+     id="{{ inline_admin_formset.formset.prefix }}-group">
+    <h2 class="grp-collapse-handler">
+        {% if inline_admin_formset.opts.title %}{{ inline_admin_formset.opts.title }}{% else %}
+            {{ inline_admin_formset.opts.verbose_name_plural|capfirst }}{% endif %}</h2>
+    <ul class="grp-tools">
+        <li><a href="javascript://" class="grp-icon grp-add-handler" title="{% trans 'Add Another' %}"> </a></li>
+    </ul>
+    {{ inline_admin_formset.formset.management_form }}
+    {{ inline_admin_formset.formset.non_form_errors }}
+    <div class="grp-module">
+        {% for inline_admin_form in inline_admin_formset %}
+            <div class="grp-dynamic-form {% if forloop.last %} grp-empty-form{% endif %}" id="{{ inline_admin_formset.formset.prefix }}{% if not forloop.last %}{{ forloop.counter0 }}{% else %}-empty{% endif %}">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>{{ inline_admin_form.form.start.label }}</th>
+                        <th>{{ inline_admin_form.form.end.label }}</th>
+                        <th>{{ inline_admin_form.form.name.label }}</th>
+                        <th>{{ inline_admin_form.form.exception.label }}</th>
+                        <th></th>
+                    </tr>
+                    <tbody>
+                    <tr>
+                        <td>{% include "admin/resources/_period_days_field.html" with field=inline_admin_form.form.start %}</td>
+                        <td>{% include "admin/resources/_period_days_field.html" with field=inline_admin_form.form.end %}</td>
+                        <td>{% include "admin/resources/_period_days_field.html" with field=inline_admin_form.form.name %}</td>
+                        <td>{% include "admin/resources/_period_days_field.html" with field=inline_admin_form.form.exception %}</td>
+                        <td>
+                            {% if inline_admin_form.form.non_field_errors %}{{ inline_admin_form.form.non_field_errors }}{% endif %}
+                            {% for field in inline_admin_form.form.hidden_fields %}{{ field }}{% endfor %}
+                            <span class="hide-delete">{{ inline_admin_form.form.DELETE }}</span>
+                            <a href="javascript://" class="grp-delete-handler">{% trans 'Delete Item' %}</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <thead>
+                    <tr>
+                        {% for day_helper in inline_admin_form.form.day_fields.values %}
+                            <th>{{ day_helper.name }}</th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        {% for day_helper in inline_admin_form.form.day_fields.values %}
+                            <td class="respa-period-day-hours">{{ day_helper.opens_field }} &ndash; {{ day_helper.closes_field }}</td>
+                        {% endfor %}
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script type="text/javascript">
+(function($) {
+    $.fn.periodInline = function(prefix) {
+        var $group = $(this);
+        var $emptyTemplate = $group.find("#" + prefix + "-empty");
+        var $totalForms = $group.find("#id_" + prefix + "-TOTAL_FORMS");
+        $totalForms.attr("autocomplete", "off");
+        function recalculateTotalForms() {
+            var n = $group.find(".grp-dynamic-form").not(".grp-empty-form").length;
+            $totalForms.val(n);
+            return n;
+        }
+        $group.on("click", ".grp-add-handler", function() {
+            var newIndex = parseInt(recalculateTotalForms(), 10); // This is _not_ adding +1 to the count because zero-based indexing
+            var $newForm = $($emptyTemplate.prop("outerHTML").replace(/(__prefix__|-empty)/g, newIndex));
+            $group.find(".grp-dynamic-form:last").after($newForm);
+            grappelli.reinitDateTimeFields($newForm);
+            $totalForms.val(recalculateTotalForms());
+        });
+        $group.on("click", ".grp-delete-handler", function() {
+            var $form = $(this).parents(".grp-dynamic-form");
+            var $deletionField = $form.find("input[name*=DELETE]");
+            $deletionField.prop("checked", true);
+            $form.hide();
+        });
+    };
+    $(document).ready(function($) {
+        var prefix = "{{ inline_admin_formset.formset.prefix }}";
+        $("#" + prefix + "-group").periodInline(prefix);
+    });
+})(grp.jQuery);
+</script>
+<style>
+    .respa-period-day-hours {
+        white-space: nowrap;
+    }
+
+    .respa-period-day-hours input {
+        max-width: 60px !important
+    }
+
+    #periods-group .ui-datepicker-trigger {
+        margin: 0 !important;
+    }
+
+    #periods-group .grp-dynamic-form {
+        margin-bottom: 1em;
+    }
+    .hide-delete {
+        display: none;
+    }
+</style>

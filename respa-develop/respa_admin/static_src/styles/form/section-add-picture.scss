@@ -1,0 +1,37 @@
+#add-picture {
+
+    p {
+        padding-bottom: 16px;
+    }
+
+    button.choose-picture-button {
+        @extend .resources-button;
+        max-height: 50px;
+        min-width: 100px;
+        max-width: 200px;
+        line-height: 0.5;
+        padding: 10px;
+        margin-top: 30px;
+    }
+
+    button.remove-picture-button.remove-picture-button {
+        @extend .choose-picture-button;
+        color: #fd4f00;
+        border: 2px solid #fd4f00;
+        background-color: transparent;
+
+        &:hover {
+            color: #fd4f00;
+            filter: brightness(0.9);
+        }
+    }
+
+    img.preview-image {
+        height: 100px;
+        width: 100px;
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+}

@@ -1,0 +1,20 @@
+<div class="form-group {% if not inline %}select-with-label{% endif %}">
+    {% if not skip_label %}
+        <label class="control-label input-label">
+            {% if custom_label %} {{ custom_label }} {% else %} {{ field.label }} {% endif %}
+            {% if field.field.required %}*{% endif %}
+        </label>
+    {% endif %}
+    {% if disabled %}
+        <div class="select-dropdown-disabled btn-primary {% if extra_classes %}{{ extra_classes }}{% endif %}">
+            {{ field }}
+            <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+        </div>
+    {% else %}
+        <div class="select-dropdown btn btn-primary {% if extra_classes %}{{ extra_classes }}{% endif %}">
+            {{ field }}
+            <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+        </div>
+    {% endif %}
+    {% include "respa_admin/forms/_errors.html" with field=field %}
+</div>
