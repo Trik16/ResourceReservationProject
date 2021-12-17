@@ -40,6 +40,6 @@ In a second moment we could also:
 
 ## Link and resources
 
-Discord Server: https://discord.gg/qMUPBgkW
-Architecture Diagram: https://drive.google.com/file/d/1XPH84nWvgRdFZSbuQdKIeymoLe_cK1_a/view?usp=sharing
-Conventional Commits: https://www.conventionalcommits.org/en/v1.0.0/#summary
+- Discord Server: https://discord.gg/qMUPBgkW
+- Architecture Diagram: https://drive.google.com/file/d/1XPH84nWvgRdFZSbuQdKIeymoLe_cK1_a/view?usp=sharing
+- Conventional Commits: https://www.conventionalcommits.org/en/v1.0.0/#summary
