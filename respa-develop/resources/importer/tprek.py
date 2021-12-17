@@ -65,11 +65,7 @@ class TPRekImporter(Importer):
         unit_list = Unit.objects.filter(identifiers__namespace='tprek').distinct()
         syncher = ModelSyncher(unit_list, generate_tprek_id)
 
-        if 'results' in data:
-            units = data['results']
-        else:
-            units = [data]
-
+        units = data['results'] if 'results' in data else [data]
         for unit_data in units:
             self._import_unit(unit_data, syncher)
 

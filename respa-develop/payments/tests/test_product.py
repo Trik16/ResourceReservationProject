@@ -68,7 +68,7 @@ def test_product_delete(product_1_v2, product_2):
     product_1_v2.delete()
 
     assert Product.objects.count() == 3
-    assert set([p.id for p in Product.objects.current()]) == {product_2.id}
+    assert {p.id for p in Product.objects.current()} == {product_2.id}
 
 
 def test_get_pretax_price_success(product_1):

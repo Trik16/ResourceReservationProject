@@ -175,8 +175,12 @@ class ManageUserPermissionsListView(ExtraContextMixin, ListView):
 
     def get_all_available_units(self):
         if self.request.user.is_superuser:
-            all_units = self.model.objects.all().prefetch_related('authorizations').exclude(authorizations__authorized__isnull=True)
-            return all_units
+            return (
+                self.model.objects.all()
+                .prefetch_related('authorizations')
+                .exclude(authorizations__authorized__isnull=True)
+            )
+
 
         unit_filters = Q(authorizations__authorized=self.request.user,
                          authorizations__level__in={
@@ -216,17 +220,18 @@ class ManageUserPermissionsSearchView(ExtraContextMixin, ListView):
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        if self.search_query and '@' in self.search_query:
-            qs = self.model.objects.filter(email__iexact=self.search_query)
-            return qs
-        elif self.search_query and ' ' in self.search_query:
-            try:
-                name1, name2 = self.search_query.split()
-                filters = Q(first_name__iexact=name1, last_name__iexact=name2) | Q(first_name__iexact=name2, last_name__iexact=name1)
-                qs = self.model.objects.filter(filters)
+        if self.search_query:
+            if '@' in self.search_query:
+                qs = self.model.objects.filter(email__iexact=self.search_query)
                 return qs
-            except ValueError:
-                return qs
+            elif ' ' in self.search_query:
+                try:
+                    name1, name2 = self.search_query.split()
+                    filters = Q(first_name__iexact=name1, last_name__iexact=name2) | Q(first_name__iexact=name2, last_name__iexact=name1)
+                    qs = self.model.objects.filter(filters)
+                    return qs
+                except ValueError:
+                    return qs
         return self.model.objects.none()
 
     def get_context_data(self, **kwargs):
@@ -328,11 +333,7 @@ class SaveResourceView(ExtraContextMixin, PeriodMixin, CreateView):
         )
 
     def post(self, request, *args, **kwargs):
-        if self.pk_url_kwarg in kwargs:
-            self.object = self.get_object()
-        else:
-            self.object = None
-
+        self.object = self.get_object() if self.pk_url_kwarg in kwargs else None
         form = self.get_form()
 
         period_formset_with_days = self.get_period_formset()

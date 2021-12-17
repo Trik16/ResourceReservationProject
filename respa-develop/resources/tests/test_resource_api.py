@@ -479,14 +479,17 @@ def test_resource_group_filter(api_client, resource_in_unit, resource_in_unit2, 
     # one group
     response = api_client.get('%s?resource_group=%s' % (list_url, resource_group.identifier))
     assert response.status_code == 200
-    assert set(r['id'] for r in response.data['results']) == {resource_in_unit.id}
+    assert {r['id'] for r in response.data['results']} == {resource_in_unit.id}
 
     # multiple groups
     response = api_client.get(
         '%s?resource_group=%s,%s' % (list_url, resource_group.identifier, resource_group2.identifier)
     )
     assert response.status_code == 200
-    assert set(r['id'] for r in response.data['results']) == {resource_in_unit.id, resource_in_unit2.id}
+    assert {r['id'] for r in response.data['results']} == {
+        resource_in_unit.id,
+        resource_in_unit2.id,
+    }
 
 
 @pytest.mark.django_db
@@ -596,7 +599,7 @@ def test_resource_available_between_filter_reservations(user_api_client, list_ur
         p1 = Period.objects.create(start=datetime.date(2115, 4, 1),
                                    end=datetime.date(2115, 4, 30),
                                    resource=resource)
-        for weekday in range(0, 7):
+        for weekday in range(7):
             Day.objects.create(period=p1, weekday=weekday,
                                opens=datetime.time(0, 0),
                                closes=datetime.time(23, 59))
@@ -625,7 +628,7 @@ def test_resource_available_between_filter_opening_hours(user_api_client, list_u
     p1 = Period.objects.create(start=datetime.date(2115, 4, 1),
                                end=datetime.date(2115, 4, 30),
                                resource=resource_in_unit)
-    for weekday in range(0, 7):
+    for weekday in range(7):
         Day.objects.create(period=p1, weekday=weekday,
                            opens=datetime.time(8, 0),
                            closes=datetime.time(16, 0))
@@ -633,7 +636,7 @@ def test_resource_available_between_filter_opening_hours(user_api_client, list_u
     p1 = Period.objects.create(start=datetime.date(2115, 4, 1),
                                end=datetime.date(2115, 4, 30),
                                resource=resource_in_unit2)
-    for weekday in range(0, 6):
+    for weekday in range(6):
         Day.objects.create(period=p1, weekday=weekday,
                            opens=datetime.time(12, 0),
                            closes=datetime.time(14, 0))
@@ -684,7 +687,7 @@ def test_resource_available_between_considers_inactive_reservations(user_api_cli
     p1 = Period.objects.create(start=datetime.date(2115, 4, 1),
                                end=datetime.date(2115, 4, 30),
                                resource=resource_in_unit)
-    for weekday in range(0, 7):
+    for weekday in range(7):
         Day.objects.create(period=p1, weekday=weekday,
                            opens=datetime.time(0, 0),
                            closes=datetime.time(23, 59))
@@ -764,7 +767,7 @@ def test_available_between_with_period(list_url, resource_in_unit, resource_in_u
     p2 = Period.objects.create(start=datetime.date(2115, 4, 1),
                                end=datetime.date(2115, 4, 8),
                                resource=resource_in_unit2)
-    for weekday in range(0, 7):
+    for weekday in range(7):
         Day.objects.create(period=p1, weekday=weekday,
                            opens=datetime.time(8, 0),
                            closes=datetime.time(16, 00))

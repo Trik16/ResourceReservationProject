@@ -193,12 +193,10 @@ class UpdateCalendarItemRequest(BaseCalendarItemRequest):
         :param update_props: Dict of properties to update
         :type update_props: dict[str, object]
         """
-        updates = []
-        for field_uri, node in self._convert_props(update_props):
-            updates.append(T.SetItemField(
+        updates = [T.SetItemField(
                 T.FieldURI(FieldURI=field_uri),
                 T.CalendarItem(node)
-            ))
+            ) for field_uri, node in self._convert_props(update_props)]
         if not updates:
             raise ValueError("No updates")
 

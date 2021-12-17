@@ -63,9 +63,12 @@ class ReservationEndpointOrderSerializer(OrderSerializerBase):
             raise serializers.ValidationError(_('Order lines cannot contain duplicate products.'))
 
         resource = self.context.get('resource')
-        if resource and resource.has_rent():
-            if not any(ol['product'].type == Product.RENT for ol in order_lines):
-                raise serializers.ValidationError(_('The order must contain at least one product of type "rent".'))
+        if (
+            resource
+            and resource.has_rent()
+            and all(ol['product'].type != Product.RENT for ol in order_lines)
+        ):
+            raise serializers.ValidationError(_('The order must contain at least one product of type "rent".'))
 
         return order_lines
 

@@ -14,14 +14,13 @@ from respa_exchange.tests.utils import moments_close_enough
 
 def _generate_item_dict():
     item_id = ItemID(get_random_string(), get_random_string())
-    item_dict = {
+    return {
         'id': item_id,
         'subject': get_random_string(),
         'start': now(),
         'end': now() + timedelta(hours=1),
         'organizer_name': 'Bob Dummy'
     }
-    return item_dict
 
 
 @pytest.mark.django_db

@@ -21,9 +21,7 @@ COMMENTABLE_MODELS = {
 }
 
 if getattr(settings, 'RESPA_CATERINGS_ENABLED', False):
-    COMMENTABLE_MODELS.update({
-        'catering_order': CateringOrder,
-    })
+    COMMENTABLE_MODELS['catering_order'] = CateringOrder
 
 
 def get_commentable_content_types():
@@ -147,7 +145,7 @@ class Comment(models.Model):
             notification_type = NotificationType.CATERING_ORDER_COMMENT_CREATED
         elif target_model == Reservation:
             unit = target_object.resource.unit
-            email = unit.manager_email if unit.manager_email else None
+            email = unit.manager_email or None
             reserver = target_object.user
             notification_type = NotificationType.RESERVATION_COMMENT_CREATED
 

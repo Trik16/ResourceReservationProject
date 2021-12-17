@@ -63,10 +63,7 @@ class SubscribeRequest(EWSRequest):
             raise Exception(etree.tostring(srm))
         sub_id_el = srm.find('m:SubscriptionId', namespaces=NAMESPACES)
         watermark_el = srm.find('m:Watermark', namespaces=NAMESPACES)
-        if watermark_el:
-            watermark = watermark_el.text
-        else:
-            watermark = None
+        watermark = watermark_el.text if watermark_el else None
         return (sub_id_el.text, watermark)
 
 
@@ -188,5 +185,4 @@ class GetStreamingEventsRequest(EWSRequest):
         timeout = (self.timeout_minutes + 1) * 60
         for resp in sess.soap_stream(self, timeout=timeout):
             events = self.process_response(resp)
-            for event in events:
-                yield event
+            yield from events

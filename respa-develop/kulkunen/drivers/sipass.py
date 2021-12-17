@@ -52,9 +52,7 @@ class SiPassToken:
         if self.expires_at is None:
             return False
         now = datetime.now()
-        if now > self.expires_at + timedelta(seconds=30):
-            return True
-        return False
+        return now > self.expires_at + timedelta(seconds=30)
 
     def refresh(self, expiration_time):
         self.expires_at = datetime.now() + timedelta(seconds=expiration_time)
@@ -214,10 +212,7 @@ class SiPassDriver(AccessControlDriver):
             resp = self.api_req_unauth('authentication/sessiontimeout', 'GET', headers={
                 'Authorization': token.value
             })
-            if isinstance(resp, int):
-                token_expiration_time = resp
-            else:
-                token_expiration_time = 360  # default
+            token_expiration_time = resp if isinstance(resp, int) else 360
             self.update_driver_data(dict(token_expiration_time=token_expiration_time))
 
         token.refresh(token_expiration_time)
@@ -259,13 +254,9 @@ class SiPassDriver(AccessControlDriver):
         url = '%s/%s' % (self.get_setting('api_url'), path)
         self.logger.info('%s: %s' % (method, url))
         args = dict(headers=headers, verify=verify_tls)
-        if method == 'POST':
+        if method in ['POST', 'PUT']:
             args['json'] = data
-        elif method == 'PUT':
-            args['json'] = data
-        elif method == 'GET':
-            args['params'] = params
-        elif method == 'DELETE':
+        elif method in ['GET', 'DELETE']:
             args['params'] = params
         else:
             raise Exception("Invalid method")
@@ -354,18 +345,21 @@ class SiPassDriver(AccessControlDriver):
 
     def get_access_levels(self):
         resp = self.api_get('AccessLevels')
-        records = [dict(name=r['Name'], id=r['Token'], type='access_level') for r in resp['Records']]
-        return records
+        return [
+            dict(name=r['Name'], id=r['Token'], type='access_level')
+            for r in resp['Records']
+        ]
 
     def get_access_point_groups(self):
         resp = self.api_get('AccessPointGroups')
-        records = [dict(name=r['Name'], id=r['Token'], type='access_point_group') for r in resp['Records']]
-        return records
+        return [
+            dict(name=r['Name'], id=r['Token'], type='access_point_group')
+            for r in resp['Records']
+        ]
 
     def get_workgroups(self):
         resp = self.api_get('WorkGroups')
-        records = [dict(name=r['Name'], id=r['Token']) for r in resp['Records']]
-        return records
+        return [dict(name=r['Name'], id=r['Token']) for r in resp['Records']]
 
     def get_time_schedules(self):
         resp = self.api_get('TimeSchedules')
@@ -448,7 +442,7 @@ class SiPassDriver(AccessControlDriver):
             ar_end = ar_end.replace(microsecond=0).isoformat()
 
         target = ar.target
-        out = {
+        return {
             'ArmingRightsId': None,
             'ControlModeId': None,
             'EndDate': ar_end,
@@ -460,7 +454,6 @@ class SiPassDriver(AccessControlDriver):
             'Side': 0,
             'TimeScheduleToken': ar.time_schedule_id,
         }
-        return out
 
     def api_create_cardholder(self, data):
         required_keys = [
@@ -475,16 +468,13 @@ class SiPassDriver(AccessControlDriver):
 
         ar_list = data.get('access_rules', [])
         if ar_list:
-            start_time = min([x.start_time for x in ar_list])
-            end_time = max([x.end_time for x in ar_list])
+            start_time = min(x.start_time for x in ar_list)
+            end_time = max(x.end_time for x in ar_list)
         else:
             start_time = data.get('start_time', now)
             end_time = start_time + timedelta(days=1)
 
-        access_rules = []
-        for ar in ar_list:
-            access_rules.append(self._generate_access_rule(ar))
-
+        access_rules = [self._generate_access_rule(ar) for ar in ar_list]
         start_time = start_time.replace(microsecond=0)
         end_time = end_time.replace(microsecond=0)
 
@@ -579,9 +569,7 @@ class SiPassDriver(AccessControlDriver):
             }
         }
         resp = self.api_post('Cardholders', data=cardholder_data)
-        cardholder_id = resp['Token']
-
-        return cardholder_id
+        return resp['Token']
 
     def create_access_user(self, grant):
         user = grant.reservation.user
@@ -597,7 +585,7 @@ class SiPassDriver(AccessControlDriver):
             # and if that fails, we probably have other problems. Upper layers
             # will take care of retrying later in case the unlikely false positive
             # happens.
-            for i in range(20):
+            for _ in range(20):
                 pin = get_random_string(1, '123456789') + get_random_string(3, '0123456789')
                 if not self.system.users.active().filter(identifier=pin).exists():
                     break
@@ -620,7 +608,7 @@ class SiPassDriver(AccessControlDriver):
         workgroup = self.get_object_by_id(grant, 'workgroups', 'cardholder_workgroup_name')
         card_technology_id = credential_profile['card_technology_id']
 
-        cardholder_id = self.api_create_cardholder(dict(
+        return self.api_create_cardholder(dict(
             first_name=user.first_name,
             last_name=user.last_name,
             card_number=user.identifier,
@@ -630,8 +618,6 @@ class SiPassDriver(AccessControlDriver):
             credential_profile=credential_profile,
             workgroup=workgroup,
         ))
-
-        return cardholder_id
 
     def install_grant(self, grant):
         self.logger.info('[%s] Installing SiPass grant' % grant)

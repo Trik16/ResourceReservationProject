@@ -327,15 +327,8 @@ class Resource(ModifiableModel, AutoIdentifiedModel):
             begin = reservation.begin
             end = reservation.end
 
-        if begin.tzinfo:
-            begin = begin.astimezone(tz)
-        else:
-            begin = tz.localize(begin)
-        if end.tzinfo:
-            end = end.astimezone(tz)
-        else:
-            end = tz.localize(end)
-
+        begin = begin.astimezone(tz) if begin.tzinfo else tz.localize(begin)
+        end = end.astimezone(tz) if end.tzinfo else tz.localize(end)
         if begin.date() != end.date():
             raise ValidationError(_("You cannot make a multi day reservation"))
 
@@ -441,21 +434,19 @@ class Resource(ModifiableModel, AutoIdentifiedModel):
                     hours_list[0]['starts'] = res.end
                     # proceed to the next reservation
                     continue
-            if duration:
-                if res.begin - hours_list[-1]['starts'] < duration:
-                    # the free period is too short, discard this period
-                    hours_list[-1]['starts'] = res.end
-                    continue
+            if duration and res.begin - hours_list[-1]['starts'] < duration:
+                # the free period is too short, discard this period
+                hours_list[-1]['starts'] = res.end
+                continue
             hours_list[-1]['ends'] = timezone.localtime(res.begin)
             # check if the reservation spans the end
             if res.end > end:
                 return hours_list
             hours_list.append({'starts': timezone.localtime(res.end)})
         # after the last reservation, we must check if the remaining free period is too short
-        if duration:
-            if end - hours_list[-1]['starts'] < duration:
-                hours_list.pop()
-                return hours_list
+        if duration and end - hours_list[-1]['starts'] < duration:
+            hours_list.pop()
+            return hours_list
         # otherwise add the remaining free period
         hours_list[-1]['ends'] = end
         return hours_list
@@ -474,7 +465,7 @@ class Resource(ModifiableModel, AutoIdentifiedModel):
         else:
             hours_objs = opening_hours_cache
 
-        opening_hours = dict()
+        opening_hours = {}
         for h in hours_objs:
             opens = h.open_between.lower.astimezone(tz)
             closes = h.open_between.upper.astimezone(tz)
@@ -761,10 +752,7 @@ class ResourceImage(ModifiableModel):
         self._process_image()
         if self.sort_order is None:
             other_images = self.resource.images.order_by('-sort_order')
-            if not other_images:
-                self.sort_order = 0
-            else:
-                self.sort_order = other_images[0].sort_order + 1
+            self.sort_order = 0 if not other_images else other_images[0].sort_order + 1
         if self.type == "main":
             other_main_images = self.resource.images.filter(type="main")
             if other_main_images.exists():

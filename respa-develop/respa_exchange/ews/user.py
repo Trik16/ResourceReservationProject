@@ -29,8 +29,7 @@ class ResolveNamesRequest(EWSRequest):
         :type sess: respa_exchange.session.ExchangeSession
         """
         resp = sess.soap(self)
-        resolutions = resp.xpath("//t:Resolution", namespaces=NAMESPACES)
-        return resolutions
+        return resp.xpath("//t:Resolution", namespaces=NAMESPACES)
 
 
 class GetDelegateRequest(EWSRequest):
@@ -60,5 +59,4 @@ class GetDelegateRequest(EWSRequest):
         :type sess: respa_exchange.session.ExchangeSession
         """
         resp = sess.soap(self)
-        resolutions = resp.xpath("//t:Resolution", namespaces=NAMESPACES)
-        return resolutions
+        return resp.xpath("//t:Resolution", namespaces=NAMESPACES)

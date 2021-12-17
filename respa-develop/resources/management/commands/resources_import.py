@@ -48,9 +48,8 @@ class Command(BaseCommand):
             if options[imp_type]:
                 if not method:
                     raise CommandError("Importer %s does not support importing %s" % (name, imp_type))
-            else:
-                if not options['all']:
-                    continue
+            elif not options['all']:
+                continue
 
             if method:
                 with override(default_language), transaction.atomic():

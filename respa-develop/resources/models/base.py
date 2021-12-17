@@ -14,9 +14,7 @@ class AutoIdentifiedModel(models.Model):
         if pk_type == 'CharField':
             if not self.pk:
                 self.pk = generate_id()
-        elif pk_type == 'AutoField':
-            pass
-        else:
+        elif pk_type != 'AutoField':
             raise Exception('Unsupported primary key field: %s' % pk_type)
         super().save(*args, **kwargs)
 
@@ -30,13 +28,8 @@ class NameIdentifiedModel(models.Model):
         pk_type = self._meta.pk.get_internal_type()
         if pk_type == 'CharField':
             if not self.pk:
-                if self.name_en:
-                    self.pk = slugify(self.name_en)
-                else:
-                    self.pk = slugify(self.name_fi)
-        elif pk_type == 'AutoField':
-            pass
-        else:
+                self.pk = slugify(self.name_en) if self.name_en else slugify(self.name_fi)
+        elif pk_type != 'AutoField':
             raise Exception('Unsupported primary key field: %s' % pk_type)
         super().save(*args, **kwargs)
 

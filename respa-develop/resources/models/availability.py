@@ -22,10 +22,7 @@ def combine_datetime(date, time, tz):
 
 
 def datetime_to_date(dt, tz):
-    if dt.tzinfo is None:
-        dt = tz.localize(dt)
-    else:
-        dt = dt.astimezone(tz)
+    dt = tz.localize(dt) if dt.tzinfo is None else dt.astimezone(tz)
     return dt.date()
 
 
@@ -81,10 +78,6 @@ def get_opening_hours(time_zone, periods, begin, end=None):
         for period in periods:
             if period.start > date or period.end < date:
                 continue
-            # Currently the 'closed' field of periods do not
-            # always contain sensible data. Ignore it for now.
-            if False and period.closed:
-                break
             day = period.range_days.get(date.weekday())
             if day is None or day.closed:
                 break
@@ -137,11 +130,7 @@ class Period(models.Model):
 
     def _check_closed(self):
         # TODO: why is this automagically closing itself upon creation when there's no days added yet
-        if self.pk:
-            # The period is not `closed` if it has any `open` days
-            self.closed = not self.days.filter(closed=False).exists()
-        else:  # Unsaved period, thus has no days, thus is closed.
-            self.closed = True
+        self.closed = not self.days.filter(closed=False).exists() if self.pk else True
 
     def clean(self, ignore_overlap=False):
         super(Period, self).clean()

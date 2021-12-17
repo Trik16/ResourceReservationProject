@@ -407,13 +407,11 @@ def _get_images_formset_translated_fields(images_formset, lang_postfix):
     if images_formset is None:
         return 0
     image_forms = images_formset.forms
-    images_translation_count = 0
-
-    for form in image_forms:
-        if form.initial:
-            images_translation_count += len([x for x in form.initial if x.endswith(lang_postfix)])
-
-    return images_translation_count
+    return sum(
+        len([x for x in form.initial if x.endswith(lang_postfix)])
+        for form in image_forms
+        if form.initial
+    )
 
 
 class UserForm(forms.ModelForm):
@@ -460,10 +458,13 @@ class UnitAuthorizationForm(forms.ModelForm):
         unit = cleaned_data.get('subject')
         user_has_unit_auth = self.request.user.unit_authorizations.to_unit(unit).admin_level().exists()
         user_has_unit_group_auth = self.request.user.unit_group_authorizations.to_unit(unit).admin_level().exists()
-        if self.has_changed():
-            if not user_has_unit_auth and not user_has_unit_group_auth:
-                self.add_error('subject', _('You can\'t add, change or delete permissions to unit you are not admin of'))
-                self.cleaned_data[DELETION_FIELD_NAME] = False
+        if (
+            self.has_changed()
+            and not user_has_unit_auth
+            and not user_has_unit_group_auth
+        ):
+            self.add_error('subject', _('You can\'t add, change or delete permissions to unit you are not admin of'))
+            self.cleaned_data[DELETION_FIELD_NAME] = False
         return cleaned_data
 
     class Meta:

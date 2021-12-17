@@ -140,9 +140,12 @@ def _find_exchange_user_by_mailbox(ex_resource, mailbox, last_updated_at=None):
         # If the user name does not match, but we have updated
         # the user info after the calendar item was created,
         # everything is fine.
-        if last_updated_at and ex_user.updated_at:
-            if ex_user.updated_at > last_updated_at:
-                return ex_user
+        if (
+            last_updated_at
+            and ex_user.updated_at
+            and ex_user.updated_at > last_updated_at
+        ):
+            return ex_user
 
     req = ResolveNamesRequest([user_identifier], principal=ex_resource.principal_email)
     resolutions = req.send(ex_resource.exchange.get_ews_session())
@@ -157,11 +160,7 @@ def _find_exchange_user_by_mailbox(ex_resource, mailbox, last_updated_at=None):
             continue
 
         user_name = mb.find("t:Name", namespaces=NAMESPACES)
-        if user_name is not None:
-            user_name = user_name.text
-        else:
-            user_name = ''
-
+        user_name = user_name.text if user_name is not None else ''
         routing_type = mb.find("t:RoutingType", namespaces=NAMESPACES).text
         email = mb.find("t:EmailAddress", namespaces=NAMESPACES)
         contact = res.find("t:Contact", namespaces=NAMESPACES)
@@ -211,7 +210,11 @@ def _find_exchange_user_by_mailbox(ex_resource, mailbox, last_updated_at=None):
 
     ex_user.save()
 
-    existing_x500_addresses = set([x.upper() for x in ex_user.x500_addresses.values_list('address', flat=True)])
+    existing_x500_addresses = {
+        x.upper()
+        for x in ex_user.x500_addresses.values_list('address', flat=True)
+    }
+
     new_x500_addresses = set(x500_addresses) - existing_x500_addresses
     for addr in new_x500_addresses:
         ExchangeUserX500Address.objects.create(
@@ -259,9 +262,8 @@ def _parse_item_props(ex_resource, item):
 
     item_props['updated_at'] = None
     el = item.find('t:LastModifiedTime', namespaces=NAMESPACES)
-    if el is not None:
-        if el.text:
-            item_props['updated_at'] = iso8601.parse_date(el.text)
+    if el is not None and el.text:
+        item_props['updated_at'] = iso8601.parse_date(el.text)
 
     organizer = _determine_organizer(ex_resource, item)
     if organizer is None:
@@ -295,8 +297,8 @@ def fetch_reservation_data(ex_reservation):
         item_ids=[ex_reservation.item_id]
     )
     session = ex_reservation.exchange.get_ews_session()
-    items = [item for item in gcir.send(session)]
-    if len(items) == 0:
+    items = list(gcir.send(session))
+    if not items:
         return None
 
     assert len(items) == 1, "Exchange returned %d items instead of 1" % (len(items))
@@ -343,11 +345,8 @@ def sync_from_exchange(ex_resource, future_days=365, no_op=False):
         end_date=end_date
     )
     session = ex_resource.exchange.get_ews_session()
-    calendar_items = {}
-    for item in gcir.send(session):
-        calendar_items[ItemID.from_tree(item)] = item
-
-    hashes = set(item_id.hash for item_id in calendar_items.keys())
+    calendar_items = {ItemID.from_tree(item): item for item in gcir.send(session)}
+    hashes = {item_id.hash for item_id in calendar_items}
 
     log.info(
         "%s: Received %d items",
@@ -393,10 +392,9 @@ def sync_from_exchange(ex_resource, future_days=365, no_op=False):
 
         if not ex_reservation:  # It's a new one!
             ex_reservation = _create_reservation_from_exchange(item_id, ex_resource, item_props)
-        else:
-            if ex_reservation._change_key != item_id.change_key:
-                # Things changed, so edit the reservation
-                _update_reservation_from_exchange(item_id, ex_reservation, ex_resource, item_props)
+        elif ex_reservation._change_key != item_id.change_key:
+            # Things changed, so edit the reservation
+            _update_reservation_from_exchange(item_id, ex_reservation, ex_resource, item_props)
 
     with configure_scope() as scope:
         scope.remove_extra('item_xml')
