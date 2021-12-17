@@ -2,7 +2,7 @@
 This is a simple but complete exercise to learning Python.
 
 ## Task and flow chart
-We are going to do a new branch of the existing ResPa project from Helsinki City with some major difference. The goal is to have a resource booking app.
+We are going to do a new fork of the existing ResPa project from Helsinki City with some major difference. The goal is to have a resource booking app.
 
 The app books some tables from a list of pubs (or discord servers). When you book a table there a google calendar event will be associated with it.
 
