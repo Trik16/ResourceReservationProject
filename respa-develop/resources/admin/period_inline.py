@@ -36,17 +36,18 @@ class PeriodModelFormDayHelper(object):
             if isinstance(field_tuple[1], forms.TimeField):  # pragma: no branch
                 # (remove the no-branch above if adding new fields to the formlet)
                 field_tuple[1].widget.attrs["placeholder"] = ugettext_lazy("HH:mm")
-        self.initial = dict((prefix_weekday(weekday, key), value) for (key, value) in formlet.initial.items())
+        self.initial = {
+            prefix_weekday(weekday, key): value
+            for (key, value) in formlet.initial.items()
+        }
+
         self.fields = dict(fields)
         self.prefix = prefix_weekday(weekday, "")
 
     def get_day_data(self):
-        return dict(
-            (k.replace(self.prefix, ""), v)
-            for (k, v)
-            in self.form.cleaned_data.items()
-            if k.startswith(self.prefix)
-        )
+        return {k.replace(self.prefix, ""): v for (k, v)
+                in self.form.cleaned_data.items()
+                if k.startswith(self.prefix)}
 
     def save(self, period):
         day_data = self.get_day_data()
@@ -121,7 +122,12 @@ class PeriodInline(InlineModelAdmin):
 
     def get_formset(self, request, obj=None, **kwargs):
         # Ensure that we don't attempt to convince Django that our Period model has "wd" fields -- it doesn't!
-        kwargs["fields"] = list(f for f in PeriodModelForm().base_fields if not f.startswith(WEEKDAY_PREFIX))
+        kwargs["fields"] = [
+            f
+            for f in PeriodModelForm().base_fields
+            if not f.startswith(WEEKDAY_PREFIX)
+        ]
+
         formset = super(PeriodInline, self).get_formset(request, obj, **kwargs)
         if obj:  # pragma: no branch
             if isinstance(obj, Unit):  # pragma: no branch

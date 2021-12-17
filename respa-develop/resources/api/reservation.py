@@ -122,9 +122,12 @@ class ReservationSerializer(ExtraDataMixin, TranslatedModelSerializer, munigeo_a
             resource = get_object_or_none(Resource, id=resource_id)
 
         # if that didn't work out use the reservation's old resource if such exists
-        if not resource:
-            if isinstance(self.instance, Reservation) and isinstance(self.instance.resource, Resource):
-                resource = self.instance.resource
+        if (
+            not resource
+            and isinstance(self.instance, Reservation)
+            and isinstance(self.instance.resource, Resource)
+        ):
+            resource = self.instance.resource
 
         # set supported and required extra fields
         if resource:
@@ -214,18 +217,21 @@ class ReservationSerializer(ExtraDataMixin, TranslatedModelSerializer, munigeo_a
         # Check user specific reservation restrictions relating to given period.
         resource.validate_reservation_period(reservation, request_user, data=data)
 
-        if data.get('staff_event', False):
-            if not resource.can_create_staff_event(request_user):
-                raise ValidationError(dict(staff_event=_('Only allowed to be set by resource managers')))
+        if data.get('staff_event', False) and not resource.can_create_staff_event(
+            request_user
+        ):
+            raise ValidationError(dict(staff_event=_('Only allowed to be set by resource managers')))
 
-        if 'type' in data:
-            if (data['type'] != Reservation.TYPE_NORMAL and
-                    not resource.can_create_special_type_reservation(request_user)):
-                raise ValidationError({'type': _('You are not allowed to make a reservation of this type')})
+        if 'type' in data and (
+            data['type'] != Reservation.TYPE_NORMAL
+            and not resource.can_create_special_type_reservation(request_user)
+        ):
+            raise ValidationError({'type': _('You are not allowed to make a reservation of this type')})
 
-        if 'comments' in data:
-            if not resource.can_comment_reservations(request_user):
-                raise ValidationError(dict(comments=_('Only allowed to be set by staff members')))
+        if 'comments' in data and not resource.can_comment_reservations(
+            request_user
+        ):
+            raise ValidationError(dict(comments=_('Only allowed to be set by staff members')))
 
         if 'access_code' in data:
             if data['access_code'] is None:
@@ -266,9 +272,11 @@ class ReservationSerializer(ExtraDataMixin, TranslatedModelSerializer, munigeo_a
                 # field specific error messages are added in the field instead of in non_field_messages.
                 if not hasattr(exc, 'error_dict'):
                     raise ValidationError(exc)
-                error_dict = {}
-                for key, value in exc.error_dict.items():
-                    error_dict[key] = [error.message for error in value]
+                error_dict = {
+                    key: [error.message for error in value]
+                    for key, value in exc.error_dict.items()
+                }
+
                 raise ValidationError(error_dict)
         return data
 
@@ -540,10 +548,7 @@ class ReservationFilterSet(django_filters.rest_framework.FilterSet):
             return queryset
 
         fields = ('user__first_name', 'user__last_name', 'user__email')
-        conditions = []
-        for field in fields:
-            conditions.append(Q(**{field + '__icontains': value}))
-
+        conditions = [Q(**{field + '__icontains': value}) for field in fields]
         # assume that first_name and last_name were provided if empty space was found
         if ' ' in value and value.count(' ') == 1:
             name1, name2 = value.split()
@@ -630,11 +635,10 @@ class ReservationViewSet(munigeo_api.GeoModelAPIView, viewsets.ModelViewSet, Res
     ordering_fields = ('begin',)
 
     def get_serializer_class(self):
-        if settings.RESPA_PAYMENTS_ENABLED:
-            from payments.api.reservation import PaymentsReservationSerializer  # noqa
-            return PaymentsReservationSerializer
-        else:
+        if not settings.RESPA_PAYMENTS_ENABLED:
             return ReservationSerializer
+        from payments.api.reservation import PaymentsReservationSerializer  # noqa
+        return PaymentsReservationSerializer
 
     def get_serializer(self, *args, **kwargs):
         if 'data' not in kwargs and len(args) == 1:
@@ -692,11 +696,10 @@ class ReservationViewSet(munigeo_api.GeoModelAPIView, viewsets.ModelViewSet, Res
 
         if resource.need_manual_confirmation and not resource.can_bypass_manual_confirmation(self.request.user):
             new_state = Reservation.REQUESTED
+        elif instance.get_order():
+            new_state = Reservation.WAITING_FOR_PAYMENT
         else:
-            if instance.get_order():
-                new_state = Reservation.WAITING_FOR_PAYMENT
-            else:
-                new_state = Reservation.CONFIRMED
+            new_state = Reservation.CONFIRMED
 
         instance.set_state(new_state, self.request.user)
 

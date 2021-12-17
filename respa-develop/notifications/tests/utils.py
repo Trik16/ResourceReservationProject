@@ -18,7 +18,7 @@ def _mail_exists(subject, to, strings, html_body):
 
 
 def check_received_mail_exists(subject, to, strings, clear_outbox=True, html_body=None):
-    if not (isinstance(strings, list) or isinstance(strings, tuple)):
+    if not isinstance(strings, (list, tuple)):
         strings = (strings,)
     assert len(mail.outbox) >= 1, "No mails sent"
     assert _mail_exists(subject, to, strings, html_body)

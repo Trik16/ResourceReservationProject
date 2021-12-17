@@ -256,10 +256,7 @@ class ResourceSerializer(ExtraDataMixin, TranslatedModelSerializer, munigeo_api.
         request = self.context.get('request')
         prefetched_user = self.context.get('prefetched_user', None)
 
-        user = None
-        if request:
-            user = prefetched_user or request.user
-
+        user = prefetched_user or request.user if request else None
         if user and obj.is_admin(user):
             return None
         else:
@@ -269,10 +266,7 @@ class ResourceSerializer(ExtraDataMixin, TranslatedModelSerializer, munigeo_api.
         request = self.context.get('request')
         prefetched_user = self.context.get('prefetched_user', None)
 
-        user = None
-        if request:
-            user = prefetched_user or request.user
-
+        user = prefetched_user or request.user if request else None
         if user and obj.is_admin(user):
             return None
         else:
@@ -321,7 +315,7 @@ class ResourceSerializer(ExtraDataMixin, TranslatedModelSerializer, munigeo_api.
 
         if 'during_closing' in params:
             during_closing = params['during_closing'].lower()
-            if during_closing == 'true' or during_closing == 'yes' or during_closing == '1':
+            if during_closing in ['true', 'yes', '1']:
                 times['during_closing'] = True
 
         if len(times):
@@ -362,8 +356,7 @@ class ResourceSerializer(ExtraDataMixin, TranslatedModelSerializer, munigeo_api.
         if not rv_list:
             return []
 
-        rv_ser_list = ReservationSerializer(rv_list, many=True, context=self.context).data
-        return rv_ser_list
+        return ReservationSerializer(rv_list, many=True, context=self.context).data
 
     class Meta:
         model = Resource
@@ -420,7 +413,12 @@ class ResourceOrderingFilter(django_filters.OrderingFilter):
                 accessibility_viewpoints = AccessibilityViewpoint.objects.all()[:1]
             if len(accessibility_viewpoints) == 0:
                 logging.error('Accessibility Viewpoints are not imported from Accessibility database')
-                value = [val for val in value if val != 'accessibility' and val != '-accessibility']
+                value = [
+                    val
+                    for val in value
+                    if val not in ['accessibility', '-accessibility']
+                ]
+
                 return super().filter(qs, value)
 
             # annotate the queryset with accessibility priority from selected viewpoints.
@@ -539,14 +537,13 @@ class ResourceFilterSet(django_filters.FilterSet):
             return self._filter_available_between_whole_range(
                 queryset, overlapping_reservations, available_start, available_end
             )
-        else:
-            try:
-                period = datetime.timedelta(minutes=int(value[2]))
-            except ValueError:
-                raise exceptions.ParseError('available_between period must be an integer.')
-            return self._filter_available_between_with_period(
-                queryset, overlapping_reservations, available_start, available_end, period
-            )
+        try:
+            period = datetime.timedelta(minutes=int(value[2]))
+        except ValueError:
+            raise exceptions.ParseError('available_between period must be an integer.')
+        return self._filter_available_between_with_period(
+            queryset, overlapping_reservations, available_start, available_end, period
+        )
 
     def _filter_available_between_whole_range(self, queryset, reservations, available_start, available_end):
         # exclude resources that have reservation(s) overlapping with the available_between range
@@ -572,10 +569,7 @@ class ResourceFilterSet(django_filters.FilterSet):
 
         start_too_early = hours['opens'] and start < hours['opens']
         end_too_late = hours['closes'] and end > hours['closes']
-        if start_too_early or end_too_late:
-            return False
-
-        return True
+        return not start_too_early and not end_too_late
 
     def _filter_available_between_with_period(self, queryset, reservations, available_start, available_end, period):
         reservations = reservations.order_by('begin').select_related('resource')
@@ -616,12 +610,7 @@ class ResourceFilterSet(django_filters.FilterSet):
 
         if not reservations:
             # the resource has no reservations, just check if the period fits in the resource's opening times
-            if end - current >= period:
-                return True
-            return False
-
-        # try to find an open slot between reservations and opening / closing times.
-        # start from period start time or opening time depending on which one is earlier.
+            return end - current >= period
         for reservation in reservations:
             if reservation.end <= current:
                 # this reservation is in the past
@@ -636,13 +625,9 @@ class ResourceFilterSet(django_filters.FilterSet):
             # did not find an open slot before the reservation currently being examined,
             # proceed to next reservation
             current = reservation.end
-        else:
             # all reservations checked and no free slot found, check if there is a free slot after the last
             # reservation
-            if end - reservation.end >= period:
-                return True
-
-        return False
+        return end - reservation.end >= period
 
     class Meta:
         model = Resource
@@ -687,7 +672,7 @@ class LocationFilterBackend(filters.BaseFilterBackend):
         if 'distance' in query_params:
             try:
                 distance = float(query_params['distance'])
-                if not distance > 0:
+                if distance <= 0:
                     raise ValueError()
             except ValueError:
                 raise exceptions.ParseError("'distance' needs to be a floating point number")
@@ -785,11 +770,10 @@ class ResourceListViewSet(munigeo_api.GeoModelAPIView, mixins.ListModelMixin,
         [SessionAuthentication])
 
     def get_serializer_class(self):
-        if settings.RESPA_PAYMENTS_ENABLED:
-            from payments.api.resource import PaymentsResourceSerializer  # noqa
-            return PaymentsResourceSerializer
-        else:
+        if not settings.RESPA_PAYMENTS_ENABLED:
             return ResourceSerializer
+        from payments.api.resource import PaymentsResourceSerializer  # noqa
+        return PaymentsResourceSerializer
 
     def get_serializer(self, page, *args, **kwargs):
         self._page = page
@@ -821,11 +805,10 @@ class ResourceViewSet(munigeo_api.GeoModelAPIView, mixins.RetrieveModelMixin,
         ([TokenAuthentication] if settings.ENABLE_RESOURCE_TOKEN_AUTH else []))
 
     def get_serializer_class(self):
-        if settings.RESPA_PAYMENTS_ENABLED:
-            from payments.api.resource import PaymentsResourceDetailsSerializer  # noqa
-            return PaymentsResourceDetailsSerializer
-        else:
+        if not settings.RESPA_PAYMENTS_ENABLED:
             return ResourceDetailsSerializer
+        from payments.api.resource import PaymentsResourceDetailsSerializer  # noqa
+        return PaymentsResourceDetailsSerializer
 
     def get_serializer(self, page, *args, **kwargs):
         self._page = [page]
@@ -852,18 +835,14 @@ class ResourceViewSet(munigeo_api.GeoModelAPIView, mixins.RetrieveModelMixin,
         user = request.user
 
         exists = user.favorite_resources.filter(id=resource.id).exists()
-        if value:
-            if not exists:
-                user.favorite_resources.add(resource)
-                return response.Response(status=status.HTTP_201_CREATED)
-            else:
-                return response.Response(status=status.HTTP_304_NOT_MODIFIED)
+        if value and not exists:
+            user.favorite_resources.add(resource)
+            return response.Response(status=status.HTTP_201_CREATED)
+        elif value or not exists:
+            return response.Response(status=status.HTTP_304_NOT_MODIFIED)
         else:
-            if exists:
-                user.favorite_resources.remove(resource)
-                return response.Response(status=status.HTTP_204_NO_CONTENT)
-            else:
-                return response.Response(status=status.HTTP_304_NOT_MODIFIED)
+            user.favorite_resources.remove(resource)
+            return response.Response(status=status.HTTP_204_NO_CONTENT)
 
     @action(detail=True, methods=['post'])
     def favorite(self, request, pk=None):

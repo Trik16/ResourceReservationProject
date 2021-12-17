@@ -40,9 +40,6 @@ def remove_secrets(data):
         if model['model'] == 'socialaccount.socialapp':
             fields['client_id'] = fake.md5()
             fields['secret'] = fake.md5()
-        elif model['model'] == 'socialaccount.socialapp':
-            fields['token_secret'] = fake.md5()
-            fields['token'] = fake.md5()
         elif model['model'] == 'account.emailaddress':
             fields['email'] = email_by_user[fields['user']]
         elif model['model'] == 'socialaccount.socialaccount':

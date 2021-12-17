@@ -174,7 +174,7 @@ def resource_with_opening_hours(resource_in_unit):
     p1 = Period.objects.create(start=datetime.date(2115, 1, 1),
                                end=datetime.date(2115, 12, 31),
                                resource=resource_in_unit, name='regular hours')
-    for weekday in range(0, 7):
+    for weekday in range(7):
         Day.objects.create(period=p1, weekday=weekday,
                            opens=datetime.time(8, 0),
                            closes=datetime.time(18, 0))
@@ -215,28 +215,29 @@ def equipment_category():
 @pytest.mark.django_db
 @pytest.fixture
 def equipment(equipment_category):
-    equipment = Equipment.objects.create(name='test equipment', category=equipment_category)
-    return equipment
+    return Equipment.objects.create(
+        name='test equipment', category=equipment_category
+    )
 
 
 @pytest.mark.django_db
 @pytest.fixture
 def equipment_alias(equipment):
-    equipment_alias = EquipmentAlias.objects.create(name='test equipment alias', language='fi', equipment=equipment)
-    return equipment_alias
+    return EquipmentAlias.objects.create(
+        name='test equipment alias', language='fi', equipment=equipment
+    )
 
 
 @pytest.mark.django_db
 @pytest.fixture
 def resource_equipment(resource_in_unit, equipment):
     data = {'test_key': 'test_value'}
-    resource_equipment = ResourceEquipment.objects.create(
+    return ResourceEquipment.objects.create(
         equipment=equipment,
         resource=resource_in_unit,
         data=data,
         description='test resource equipment',
     )
-    return resource_equipment
 
 
 @pytest.mark.django_db
@@ -367,11 +368,10 @@ def resource_group2(resource_in_unit2):
 
 @pytest.fixture
 def test_municipality():
-    municipality = Municipality.objects.create(
+    return Municipality.objects.create(
         id='foo',
         name='Foo'
     )
-    return municipality
 
 
 @pytest.fixture

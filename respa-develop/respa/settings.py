@@ -396,10 +396,9 @@ if 'SECRET_KEY' not in locals():
         system_random = random.SystemRandom()
         try:
             SECRET_KEY = ''.join([system_random.choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)') for i in range(64)])
-            secret = open(secret_file, 'w')
-            os.chmod(secret_file, 0o0600)
-            secret.write(SECRET_KEY)
-            secret.close()
+            with open(secret_file, 'w') as secret:
+                os.chmod(secret_file, 0o0600)
+                secret.write(SECRET_KEY)
         except IOError:
             Exception('Please create a %s file with random characters to generate your secret key!' % secret_file)
 

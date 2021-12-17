@@ -38,10 +38,7 @@ def test_get_resource_check_products(endpoint, price_type, user_api_client, reso
     )
     assert Product.objects.count() == 2
 
-    if endpoint == 'list':
-        url = LIST_URL
-    else:
-        url = get_detail_url(resource_in_unit)
+    url = LIST_URL if endpoint == 'list' else get_detail_url(resource_in_unit)
     response = user_api_client.get(url)
 
     assert response.status_code == 200

@@ -43,9 +43,12 @@ class Importer(object):
             return
 
         field = obj._meta.get_field(field_name)
-        if field.get_internal_type() == 'CharField' and val is not None:
-            if len(val) > field.max_length:
-                raise Exception("field '%s' too long (max. %d): %s" % field_name, field.max_length, val)
+        if (
+            field.get_internal_type() == 'CharField'
+            and val is not None
+            and len(val) > field.max_length
+        ):
+            raise Exception("field '%s' too long (max. %d): %s" % field_name, field.max_length, val)
 
         setattr(obj, field_name, val)
         obj._changed = True
@@ -155,8 +158,8 @@ class Importer(object):
             print(obj.type_id)
             obj.save()
 
-        old_purposes = set([purp.pk for purp in obj.purposes.all()])
-        new_purposes = set([purp.pk for purp in data['purposes']])
+        old_purposes = {purp.pk for purp in obj.purposes.all()}
+        new_purposes = {purp.pk for purp in data['purposes']}
         if old_purposes != new_purposes:
             obj.purposes = new_purposes
             obj._changed_fields.append('purposes')

@@ -40,10 +40,10 @@ class Kirjasto10Importer(Importer):
         purpose_url = "https://docs.google.com/spreadsheets/d/1mjeCSLQFA82mBvGcbwPkSL3OTZx1kaZtnsq3CF_f4V8/export?format=csv&id=1mjeCSLQFA82mBvGcbwPkSL3OTZx1kaZtnsq3CF_f4V8&gid=1039480682"
         resp = requests.get(purpose_url)
         assert resp.status_code == 200
-        print(str(resp.content))
+        print(resp.content)
         reader = csv.reader(io.StringIO(resp.content.decode('utf8')))
         data = list(reader)
-        print(str(data))
+        print(data)
         parent = ''
         for purp_data in data:
             if purp_data[0]:
@@ -85,10 +85,7 @@ class Kirjasto10Importer(Importer):
                     missing_units.add(unit_name)
                 continue
 
-            if res_data['Erillisvaraus'] == 'Kyllä':
-                confirm = True
-            else:
-                confirm = False
+            confirm = res_data['Erillisvaraus'] == 'Kyllä'
             try:
                 area = int(res_data['Koko m2'])
             except ValueError:
@@ -109,7 +106,7 @@ class Kirjasto10Importer(Importer):
                 max_reservations_per_user = int(res_data['Max. varaukset per tila (voimassa olevat)'])
             except ValueError:
                 max_reservations_per_user = None
-            reservable = True if res_data['Varattavuus'] == 'Kyllä' else False
+            reservable = res_data['Varattavuus'] == 'Kyllä'
             try:
                 reservation_info = res_data['Varausinfo / kirjautunut']
             except ValueError:

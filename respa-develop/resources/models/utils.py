@@ -210,7 +210,6 @@ def format_dt_range(language, begin, end):
             end_format = begin_format
             sep = ' – '
 
-        res = sep.join([formats.date_format(begin, begin_format), formats.date_format(end, end_format)])
     else:
         # default to English
         begin_format = r'D j/n/Y G:i'
@@ -221,9 +220,12 @@ def format_dt_range(language, begin, end):
             end_format = begin_format
             sep = ' – '
 
-        res = sep.join([formats.date_format(begin, begin_format), formats.date_format(end, end_format)])
-
-    return res
+    return sep.join(
+        [
+            formats.date_format(begin, begin_format),
+            formats.date_format(end, end_format),
+        ]
+    )
 
 
 def build_reservations_ical_file(reservations):

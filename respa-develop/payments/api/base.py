@@ -27,8 +27,7 @@ class ProductSerializer(TranslatedModelSerializer):
             'amount': str(obj.price)
         }
         if obj.price_type == Product.PRICE_PER_PERIOD:
-            ret.update({'period': duration_string(obj.price_period)})
-
+            ret['period'] = duration_string(obj.price_period)
         return ret
 
 
@@ -56,9 +55,8 @@ class OrderLineSerializer(serializers.ModelSerializer):
         # available_products None means "all".
         # The price check endpoint uses that because available products don't
         # make sense in it's context (because there is no resource),
-        if available_products is not None:
-            if product not in available_products:
-                raise serializers.ValidationError(_("This product isn't available on the resource."))
+        if available_products is not None and product not in available_products:
+            raise serializers.ValidationError(_("This product isn't available on the resource."))
         return product
 
 

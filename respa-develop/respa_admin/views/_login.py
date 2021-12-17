@@ -55,11 +55,8 @@ class LoginView(ExtraContextMixin, TemplateView):
 
 
 def tunnistamo_login(request):
-    if _is_authenticated(request.user):
-        # If user is already logged in with unallowed account, then log
-        # out first, to allow re-login with another account.
-        if not is_allowed_user(request.user):
-            return _logout_locally_and_in_tunnistamo(request)
+    if _is_authenticated(request.user) and not is_allowed_user(request.user):
+        return _logout_locally_and_in_tunnistamo(request)
 
     url = _get_url_with_next(request, 'helsinki_login')
     return HttpResponseRedirect(url)

@@ -7,12 +7,11 @@ from .models import AccessControlResource, AccessControlSystem
 @admin.register(AccessControlSystem)
 class AccessControlSystemAdmin(admin.ModelAdmin):
     def get_form(self, request, obj=None, **kwargs):
-        schema = {}
-        if obj is not None:
-            schema = obj.get_system_config_schema()
+        schema = obj.get_system_config_schema() if obj is not None else {}
         widget = JSONEditorWidget(schema, collapsed=False)
-        form = super().get_form(request, obj, widgets={'driver_config': widget}, **kwargs)
-        return form
+        return super().get_form(
+            request, obj, widgets={'driver_config': widget}, **kwargs
+        )
 
 
 @admin.register(AccessControlResource)
@@ -20,9 +19,8 @@ class AccessControlResourceAdmin(admin.ModelAdmin):
     list_display = ('resource', 'system', 'driver_identifier', 'active_grant_count')
 
     def get_form(self, request, obj=None, **kwargs):
-        schema = {}
-        if obj is not None:
-            schema = obj.system.get_resource_config_schema()
+        schema = obj.system.get_resource_config_schema() if obj is not None else {}
         widget = JSONEditorWidget(schema, collapsed=False)
-        form = super().get_form(request, obj, widgets={'driver_config': widget}, **kwargs)
-        return form
+        return super().get_form(
+            request, obj, widgets={'driver_config': widget}, **kwargs
+        )
