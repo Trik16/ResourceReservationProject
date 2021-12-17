@@ -61,7 +61,6 @@ def mocked_response_create(*args, **kwargs):
         def raise_for_status(self):
             if self.status_code != 200:
                 raise RequestException("Mock request error with status_code {}.".format(self.status_code))
-            pass
 
     if args[0].startswith(FAKE_BAMBORA_API_URL):
         return MockResponse(data={}, status_code=500)

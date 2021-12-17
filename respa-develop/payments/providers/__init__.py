@@ -26,12 +26,10 @@ def load_provider_config():
     template = _provider_class.get_config_template()
     env = environ.Env(**template)
 
-    config = {}
-    for key in template.keys():
-        if hasattr(settings, key):
-            config[key] = getattr(settings, key)
-        else:
-            config[key] = env(key)
+    config = {
+        key: getattr(settings, key) if hasattr(settings, key) else env(key)
+        for key in template.keys()
+    }
 
     _provider_class.config = config
 

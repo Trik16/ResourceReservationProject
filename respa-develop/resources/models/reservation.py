@@ -260,20 +260,20 @@ class Reservation(ModifiableModel):
                 self.send_reservation_confirmed_mail()
             elif self.access_code:
                 self.send_reservation_created_with_access_code_mail()
-            else:
-                if not user_is_staff:
-                    # notifications are not sent from staff created reservations to avoid spam
-                    self.send_reservation_created_mail()
+            elif not user_is_staff:
+                # notifications are not sent from staff created reservations to avoid spam
+                self.send_reservation_created_mail()
         elif new_state == Reservation.DENIED:
             self.send_reservation_denied_mail()
         elif new_state == Reservation.CANCELLED:
             order = self.get_order()
-            if order:
-                if order.state == order.CANCELLED:
-                    self.send_reservation_cancelled_mail()
-            else:
-                if user != self.user:
-                    self.send_reservation_cancelled_mail()
+            if (
+                order
+                and order.state == order.CANCELLED
+                or not order
+                and user != self.user
+            ):
+                self.send_reservation_cancelled_mail()
             reservation_cancelled.send(sender=self.__class__, instance=self,
                                        user=user)
         elif new_state == Reservation.WAITING_FOR_PAYMENT:
@@ -342,10 +342,7 @@ class Reservation(ModifiableModel):
         return format_dt_range(translation.get_language(), begin, end)
 
     def __str__(self):
-        if self.state != Reservation.CONFIRMED:
-            state_str = ' (%s)' % self.state
-        else:
-            state_str = ''
+        state_str = ' (%s)' % self.state if self.state != Reservation.CONFIRMED else ''
         return "%s: %s%s" % (self.format_time(), self.resource, state_str)
 
     def clean(self, **kwargs):
@@ -357,11 +354,7 @@ class Reservation(ModifiableModel):
         that it can be excluded when checking if the resource is available.
         """
 
-        if 'user' in kwargs:
-            user = kwargs['user']
-        else:
-            user = self.user
-
+        user = kwargs['user'] if 'user' in kwargs else self.user
         user_is_admin = user and self.resource.is_admin(user)
 
         if self.end <= self.begin:
@@ -402,10 +395,11 @@ class Reservation(ModifiableModel):
             if (self.end - self.begin) < self.resource.min_period:
                 raise ValidationError(_("The minimum reservation length is %(min_period)s") %
                                       {'min_period': humanize_duration(self.resource.min_period)})
-        else:
-            if not (self.end - self.begin) % self.resource.slot_size == datetime.timedelta(0):
-                raise ValidationError(_("The minimum reservation length is %(slot_size)s") %
-                                      {'slot_size': humanize_duration(self.resource.slot_size)})
+        elif (self.end - self.begin) % self.resource.slot_size != datetime.timedelta(
+            0
+        ):
+            raise ValidationError(_("The minimum reservation length is %(slot_size)s") %
+                                  {'slot_size': humanize_duration(self.resource.slot_size)})
 
         if self.access_code:
             validate_access_code(self.access_code, self.resource.access_code_type)

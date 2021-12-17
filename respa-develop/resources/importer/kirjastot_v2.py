@@ -180,17 +180,17 @@ def timetable_fetcher(unit, start='2016-07-01', end='2016-12-31'):
 
     for identificator in unit.identifiers.all():
 
-        if identificator.namespace == 'kirjastot.fi':
+        if identificator.namespace == 'helmet':
             params = {
-                "id": identificator.value,
+                "identificator": identificator.value,
+                "consortium": "2093",  # TODO: Helmet consortium id in v3 API
                 "with": "extra,schedules",
                 "period.start": start,
                 "period.end": end
             }
-        elif identificator.namespace == 'helmet':
+        elif identificator.namespace == 'kirjastot.fi':
             params = {
-                "identificator": identificator.value,
-                "consortium": "2093",  # TODO: Helmet consortium id in v3 API
+                "id": identificator.value,
                 "with": "extra,schedules",
                 "period.start": start,
                 "period.end": end
@@ -201,16 +201,15 @@ def timetable_fetcher(unit, start='2016-07-01', end='2016-12-31'):
 
         resp = requests.get(base, params=params)
 
-        if resp.status_code == 200:
-            data = resp.json()
-            if data["total"] > 0:
-                return data
-            else:
-                # There's possibly other identificators that might work
-                continue
-        else:
+        if resp.status_code != 200:
             return False
 
+        data = resp.json()
+        if data["total"] > 0:
+            return data
+        else:
+            # There's possibly other identificators that might work
+            continue
     # No timetables were found :(
     return False
 
@@ -229,7 +228,6 @@ def process_periods(data, unit):
     :return: None
     """
 
-    periods = []
     if data['total'] != 1:
         for item in data['items']:
             if item['name']['fi'] == unit.name_fi:
@@ -239,16 +237,14 @@ def process_periods(data, unit):
     else:
         item = data['items'][0]
 
-    for period in item['schedules']:
-        periods.append({
+    periods = [{
             'date': period.get('date'),
             'day': period.get('day'),
             'opens': period.get('opens'),
             'closes': period.get('closes'),
             'closed': period['closed'],
             'description': period['info']['fi']
-        })
-
+        } for period in item['schedules']]
     for period in periods:
         nper = unit.periods.create(
             start=period.get('date'),

@@ -70,13 +70,12 @@ class OrderFactory(factory.django.DjangoModelFactory):
     def reservation_state(obj, create, extracted, **kwargs):
         if extracted:
             state = extracted
+        elif obj.state == Order.CONFIRMED:
+            state = Reservation.CONFIRMED
+        elif obj.state in (Order.CANCELLED, Order.REJECTED, Order.EXPIRED):
+            state = Reservation.CANCELLED
         else:
-            if obj.state == Order.CONFIRMED:
-                state = Reservation.CONFIRMED
-            elif obj.state in (Order.CANCELLED, Order.REJECTED, Order.EXPIRED):
-                state = Reservation.CANCELLED
-            else:
-                state = Reservation.WAITING_FOR_PAYMENT
+            state = Reservation.WAITING_FOR_PAYMENT
         Reservation.objects.filter(id=obj.reservation.id).update(state=state)
         obj.reservation.refresh_from_db()
 
@@ -94,7 +93,7 @@ class OrderWithOrderLinesFactory(OrderFactory):
                 OrderLineFactory(order=obj)
         else:
             line_count = randint(1, 10)
-            for n in range(line_count):
+            for _ in range(line_count):
                 OrderLineFactory(order=obj)
 
 

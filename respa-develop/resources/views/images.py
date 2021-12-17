@@ -26,7 +26,7 @@ def parse_dimension_string(dim):
         height = int(height)
     except:
         width = height = 0
-    if not (width > 0 and height > 0):
+    if width <= 0 or height <= 0:
         raise ValueError("width and height must be positive integers")
     # FIXME: Check allowed image dimensions better
     return (width, height)

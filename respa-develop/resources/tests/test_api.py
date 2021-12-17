@@ -58,8 +58,7 @@ class JWTMixin(object):
 
     def authenticated_post(self, url, data, **extra):
         auth = self.get_auth(**extra)
-        response = self.client.post(url, data, HTTP_AUTHORIZATION=auth, **extra)
-        return response
+        return self.client.post(url, data, HTTP_AUTHORIZATION=auth, **extra)
 
 
 class ReservationApiTestCase(APITestCase, JWTMixin):

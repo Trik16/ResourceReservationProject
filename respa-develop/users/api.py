@@ -59,12 +59,10 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_object(self):
         username = self.kwargs.get('username', None)
-        if username:
-            qs = self.get_queryset()
-            obj = generics.get_object_or_404(qs, username=username)
-        else:
-            obj = self.request.user
-        return obj
+        if not username:
+            return self.request.user
+        qs = self.get_queryset()
+        return generics.get_object_or_404(qs, username=username)
 
     permission_classes = [permissions.IsAuthenticated]
     queryset = get_user_model().objects.all()

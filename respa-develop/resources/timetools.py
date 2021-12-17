@@ -199,10 +199,7 @@ class TimeWarp(object):
         :return: a dict with object's used datetime fields formatted
         :rtype: dict[string, string]
         """
-        if not zone:
-            zone = self.original_timezone
-        else:
-            zone = pytz.timezone(zone)
+        zone = self.original_timezone if not zone else pytz.timezone(zone)
         resp = {}
         for key in ("dt", "end_dt"):
             field = getattr(self, key)
@@ -262,15 +259,8 @@ def get_opening_hours(begin, end, resources=None):
 
     for period in periods:
 
-        if period.start < begin:
-            start = begin_dt
-        else:
-            start = arrow.get(period.start)
-        if period.end > end:
-            end = end_dt
-        else:
-            end = arrow.get(period.end)
-
+        start = begin_dt if period.start < begin else arrow.get(period.start)
+        end = end_dt if period.end > end else arrow.get(period.end)
         if period.resource:
             period_resources = [period.resource]
         else:
@@ -424,19 +414,14 @@ def calculate_availability(resource, opening_hours, duration=None):
                         # this free time slot is not long enough
                         continue
                     full_time.append(FreeTime(begin, end, end - begin))
-            else:
-                if last > rsv.end:
-                    begin = rsv.end
+            elif last > rsv.end:
+                begin = rsv.end
                     # if there is more reservations on this day
-                    if n + 1 < len(day):
-                        end = day[n + 1].begin
-                    # otherwise free time ends with closing
-                    else:
-                        end = last
-                    if duration and duration > (end - begin):
-                        # this free time slot is not long enough
-                        continue
-                    full_time.append(FreeTime(begin, end, end - begin))
+                end = day[n + 1].begin if n + 1 < len(day) else last
+                if duration and duration > (end - begin):
+                    # this free time slot is not long enough
+                    continue
+                full_time.append(FreeTime(begin, end, end - begin))
 
         availability[day] = full_time
 
@@ -480,15 +465,8 @@ def periods_to_opening_hours(resource, begin_dt, end_dt):
 
     if resource.overlapping_unit:
         for period in resource.overlapping_unit.periods.all():
-            if period.start < begin_d:
-                start = begin_dt
-            else:
-                start = arrow.get(period.start)
-            if period.end > end_d:
-                end = end_dt
-            else:
-                end = arrow.get(period.end)
-
+            start = begin_dt if period.start < begin_d else arrow.get(period.start)
+            end = end_dt if period.end > end_d else arrow.get(period.end)
             for r in arrow.Arrow.range('day', start, end):
                 for day in period.days.all():
                     if day.weekday is r.weekday():
@@ -506,15 +484,8 @@ def periods_to_opening_hours(resource, begin_dt, end_dt):
                             dates[r.date()] = OpenHours(opens, closes)
 
     for period in resource.overlapping_periods:
-        if period.start < begin_d:
-            start = begin_dt
-        else:
-            start = arrow.get(period.start)
-        if period.end > end_d:
-            end = end_dt
-        else:
-            end = arrow.get(period.end)
-
+        start = begin_dt if period.start < begin_d else arrow.get(period.start)
+        end = end_dt if period.end > end_d else arrow.get(period.end)
         for r in arrow.Arrow.range('day', start, end):
             for day in period.days.all():
                 if day.weekday is r.weekday():

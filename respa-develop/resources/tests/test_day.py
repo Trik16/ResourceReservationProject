@@ -7,7 +7,7 @@ from .utils import assert_hours
 
 
 def daterange(start_date, end_date):
-    for n in range((end_date - start_date).days):
+    for _ in range((end_date - start_date).days):
         yield start_date
         start_date += datetime.timedelta(days=1)
 
@@ -20,7 +20,7 @@ def test_opening_hours(resource_in_unit):
     # Regular hours for the whole year
     p1 = Period.objects.create(start=date(2015, 1, 1), end=date(2015, 12, 31),
                                unit=unit, name='regular hours')
-    for weekday in range(0, 7):
+    for weekday in range(7):
         Day.objects.create(period=p1, weekday=weekday,
                            opens=datetime.time(8, 0),
                            closes=datetime.time(18, 0))
@@ -35,7 +35,7 @@ def test_opening_hours(resource_in_unit):
     # Summer hours
     p2 = Period.objects.create(start=date(2015, 6, 1), end=date(2015, 9, 1),
                                unit=unit, name='summer hours')
-    for weekday in range(0, 5):
+    for weekday in range(5):
         Day.objects.create(period=p2, weekday=weekday,
                            opens=datetime.time(10, 0),
                            closes=datetime.time(16, 0))
@@ -62,7 +62,7 @@ def test_opening_hours(resource_in_unit):
     # Re-opened the week of June 8
     p4 = Period.objects.create(start=date(2015, 6, 8), end=date(2015, 6, 14),
                                unit=unit, name='re-opened')
-    for d in range(0, 7):
+    for d in range(7):
         Day.objects.create(period=p4, weekday=d, opens=datetime.time(12, 0), closes=datetime.time(14, 0))
     resource_in_unit.update_opening_hours()
     hours = resource_in_unit.get_opening_hours(begin, end)

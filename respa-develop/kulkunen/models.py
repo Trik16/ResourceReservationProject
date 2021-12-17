@@ -152,10 +152,7 @@ class AccessControlGrant(models.Model):
             logger.warn('[%s] Cancel called in invalid state')
             return
 
-        if self.state == self.REQUESTED:
-            self.state = self.REMOVED
-        else:
-            self.state = self.CANCELLED
+        self.state = self.REMOVED if self.state == self.REQUESTED else self.CANCELLED
         self.save(update_fields=['state'])
         if self.state == self.CANCELLED:
             self.resource.system.prepare_remove_grant(self)

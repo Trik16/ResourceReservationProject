@@ -154,16 +154,13 @@ def reservations_in_all_states(resource_in_unit, user):
         Reservation.CANCELLED, Reservation.CONFIRMED, Reservation.DENIED, Reservation.REQUESTED,
         Reservation.WAITING_FOR_PAYMENT
     )
-    reservations = dict()
-    for i, state in enumerate(all_states, 5):
-        reservations[state] = Reservation.objects.create(
+    return {state: Reservation.objects.create(
             resource=resource_in_unit,
             begin='2115-04-0%sT09:00:00+02:00' % i,
             end='2115-04-0%sT10:00:00+02:00' % i,
             user=user,
             state=state
-        )
-    return reservations
+        ) for i, state in enumerate(all_states, 5)}
 
 
 @pytest.fixture
@@ -674,7 +671,10 @@ def test_reservation_time_filters(api_client, list_url, reservation, resource_in
     # with the 'all' filter, both reservations should be returned
     response = api_client.get(list_url + '?all=true')
     assert response.data['count'] == 2
-    assert {reservation.id, reservation2.id}.issubset(set(res['id'] for res in response.data['results']))
+    assert {reservation.id, reservation2.id}.issubset(
+        {res['id'] for res in response.data['results']}
+    )
+
 
     # with start or end, both reservations should be returned
     # filtering by start date only
@@ -692,7 +692,9 @@ def test_reservation_time_filters(api_client, list_url, reservation, resource_in
     assert response.data['count'] == 0
     response = api_client.get(list_url + '?start=2005-04-07T11:30:00%2b02:00' + '&end=2115-04-04T09:30:00%2b02:00')
     assert response.data['count'] == 2
-    assert {reservation.id, reservation2.id}.issubset(set(res['id'] for res in response.data['results']))
+    assert {reservation.id, reservation2.id}.issubset(
+        {res['id'] for res in response.data['results']}
+    )
 
 
 @pytest.mark.parametrize("input_hours,input_mins,expected", [
@@ -1081,19 +1083,19 @@ def test_need_manual_confirmation_filter(user_api_client, user, list_url, reserv
     # no filter, expect both reservations
     response = user_api_client.get(list_url)
     assert response.status_code == 200
-    reservation_ids = set([res['id'] for res in response.data['results']])
+    reservation_ids = set(res['id'] for res in response.data['results'])
     assert reservation_ids == {reservation.id, reservation_needing_confirmation.id}
 
     # filter false, expect only first reservation
     response = user_api_client.get('%s%s' % (list_url, '?need_manual_confirmation=false'))
     assert response.status_code == 200
-    reservation_ids = set([res['id'] for res in response.data['results']])
+    reservation_ids = {res['id'] for res in response.data['results']}
     assert reservation_ids == {reservation.id}
 
     # filter true, expect only second reservation
     response = user_api_client.get('%s%s' % (list_url, '?need_manual_confirmation=true'))
     assert response.status_code == 200
-    reservation_ids = set([res['id'] for res in response.data['results']])
+    reservation_ids = {res['id'] for res in response.data['results']}
     assert reservation_ids == {reservation_needing_confirmation.id}
 
 
@@ -1107,8 +1109,10 @@ def test_need_manual_confirmation_filter(user_api_client, user, list_url, reserv
 def test_state_filters(user_api_client, user, list_url, reservations_in_all_states, state_filter, expected_states):
     response = user_api_client.get('%s%s' % (list_url, state_filter))
     assert response.status_code == 200
-    reservation_ids = set([res['id'] for res in response.data['results']])
-    assert reservation_ids == set(reservations_in_all_states[state].id for state in expected_states)
+    reservation_ids = {res['id'] for res in response.data['results']}
+    assert reservation_ids == {
+        reservations_in_all_states[state].id for state in expected_states
+    }
 
 
 @override_settings(RESPA_MAILS_ENABLED=True)
@@ -2548,7 +2552,7 @@ def test_disallow_overlapping_reservations(resource_in_unit, resource_in_unit2, 
         resource=resource_in_unit2, name='regular hours'
     )
 
-    for weekday in range(0, 7):
+    for weekday in range(7):
         Day.objects.create(
             period=period,
             weekday=weekday,

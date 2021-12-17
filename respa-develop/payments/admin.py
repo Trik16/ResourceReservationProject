@@ -30,9 +30,8 @@ class ProductForm(forms.ModelForm):
 
     def clean_resources(self):
         resources = self.cleaned_data.get('resources', [])
-        if resources:
-            if any(r.need_manual_confirmation for r in resources):
-                raise ValidationError(_('All the resources must have manual reservation confirmation disabled.'))
+        if resources and any(r.need_manual_confirmation for r in resources):
+            raise ValidationError(_('All the resources must have manual reservation confirmation disabled.'))
         return resources
 
 
@@ -155,9 +154,7 @@ class OrderAdmin(admin.ModelAdmin):
         return False
 
     def has_delete_permission(self, request, obj=None):
-        if obj and obj.state == Order.CONFIRMED:
-            return True
-        return False
+        return bool(obj and obj.state == Order.CONFIRMED)
 
     def changeform_view(self, request, object_id=None, form_url='', extra_context=None):
         extra_context = extra_context or {}

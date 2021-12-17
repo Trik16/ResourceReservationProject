@@ -180,7 +180,7 @@ def assert_response_objects(response, objects):
     if 'results' in data:
         data = data['results']
 
-    if not (isinstance(objects, list) or isinstance(objects, tuple)):
+    if not isinstance(objects, (list, tuple)):
         objects = [objects]
 
     expected_ids = {obj.id for obj in objects}
@@ -196,4 +196,4 @@ def check_keys(data, expected_keys):
 
 def is_partial_dict_in_list(partial, dicts):
     partial_items = partial.items()
-    return any([partial_items <= d.items() for d in dicts])
+    return any(partial_items <= d.items() for d in dicts)

@@ -134,12 +134,11 @@ def get_resource(name):
         main_type='space', name='space')[0]
     unit = Unit.objects.create(name='unit-{}'.format(name))
     unit.unit_groups.create(name='ug-{}'.format(name))
-    resource = Resource.objects.create(
+    return Resource.objects.create(
         unit=unit,
         type=resource_type,
         name='res-{}'.format(name),
         authentication='none')
-    return resource
 
 
 def get_user(role, *units):

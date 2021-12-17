@@ -76,11 +76,7 @@ class Command(BaseCommand):
         if options.get('all') and options.get('models'):
             raise CommandError("Use only all or models options, not both")
 
-        if options.get('all'):
-            models = self.export_models
-        else:
-            models = options.get('models')
-
+        models = self.export_models if options.get('all') else options.get('models')
         # Validate models
         for model_name in models:
             try:

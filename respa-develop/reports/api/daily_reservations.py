@@ -131,10 +131,7 @@ class DailyReservationsReport(BaseReport):
         if not queryset:
             raise exceptions.NotFound(_('No resources found'))
 
-        if unit:
-            tz = unit.time_zone
-        else:
-            tz = queryset.first().unit.time_zone
+        tz = unit.time_zone if unit else queryset.first().unit.time_zone
         tz = pytz.timezone(tz)
 
         day = params.get('day', '').strip()

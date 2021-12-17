@@ -75,10 +75,7 @@ def create_on_remote(exres):
         return
     assert isinstance(res, Reservation)
 
-    send_notifications = True
-    if getattr(res, '_skip_notifications', False):
-        send_notifications = False
-
+    send_notifications = not getattr(res, '_skip_notifications', False)
     ccir = CreateCalendarItemRequest(
         principal=force_text(exres.principal_email),
         item_props=_get_calendar_item_props(exres),
@@ -100,10 +97,7 @@ def update_on_remote(exres):
     if res.state in (Reservation.DENIED, Reservation.CANCELLED):
         return delete_on_remote(exres)
 
-    send_notifications = True
-    if getattr(res, '_skip_notifications', False):
-        send_notifications = False
-
+    send_notifications = not getattr(res, '_skip_notifications', False)
     # TODO: Should we try and track the state of the object to avoid sending superfluous updates?
     ucir = UpdateCalendarItemRequest(
         principal=force_text(exres.principal_email),
@@ -124,9 +118,10 @@ def delete_on_remote(exres):
     :param exres: Exchange Reservation
     :type exres: respa_exchange.models.ExchangeReservation
     """
-    send_notifications = True
-    if getattr(exres.reservation, '_skip_notifications', False):
-        send_notifications = False
+    send_notifications = not getattr(
+        exres.reservation, '_skip_notifications', False
+    )
+
     dcir = DeleteCalendarItemRequest(
         principal=exres.principal_email,
         item_id=exres.item_id,
