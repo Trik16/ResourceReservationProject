@@ -48,4 +48,3 @@ Then we could also:
 - Architecture Diagram: https://drive.google.com/file/d/1XPH84nWvgRdFZSbuQdKIeymoLe_cK1_a/view?usp=sharing
 - Conventional Commits: https://www.conventionalcommits.org/en/v1.0.0/#summary
 - Test Drive Development: https://testdriven.io/blog/modern-tdd/
-- Pippo: test
