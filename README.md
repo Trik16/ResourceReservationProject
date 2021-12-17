@@ -34,6 +34,7 @@ The app books some tables from a list of pubs (or discord servers). When you boo
 - Rewrite Django backend into flask.
 - Rewrite SQL DB to a NoSQL DB.
 - Write Telegram and Discord interfaces.
+- Write Unittest for each module.
 - Develop the app into docker and kubernetes (The app must be cloud native).
 
 Then we could also:
@@ -44,3 +45,4 @@ Then we could also:
 - Discord Server: https://discord.gg/qMUPBgkW
 - Architecture Diagram: https://drive.google.com/file/d/1XPH84nWvgRdFZSbuQdKIeymoLe_cK1_a/view?usp=sharing
 - Conventional Commits: https://www.conventionalcommits.org/en/v1.0.0/#summary
+- Test: test.test 
