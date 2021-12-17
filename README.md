@@ -23,6 +23,7 @@ The app books some tables from a list of pubs (or discord servers). When you boo
 - Python
 - SQL
 - JavaScript
+- Shell
 
 ## STEPS
 
