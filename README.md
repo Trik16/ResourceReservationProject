@@ -37,3 +37,9 @@ For learning porpouse I've imagined an app to book some tables from a list of pu
 
 In a second moment we could also:
 - Write interface of an Android/iOS app with Flutter
+
+## Link and resources
+
+Discord Server: https://discord.gg/qMUPBgkW
+Architecture Diagram: https://drive.google.com/file/d/1XPH84nWvgRdFZSbuQdKIeymoLe_cK1_a/view?usp=sharing
+Conventional Commits: https://www.conventionalcommits.org/en/v1.0.0/#summary
