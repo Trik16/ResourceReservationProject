@@ -45,4 +45,3 @@ Then we could also:
 - Discord Server: https://discord.gg/qMUPBgkW
 - Architecture Diagram: https://drive.google.com/file/d/1XPH84nWvgRdFZSbuQdKIeymoLe_cK1_a/view?usp=sharing
 - Conventional Commits: https://www.conventionalcommits.org/en/v1.0.0/#summary
-- Test: test.test 
