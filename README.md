@@ -37,3 +37,9 @@ The app books some tables from a list of pubs (or discord servers). When you boo
 
 Then we could also:
 - Write an interface of an Android/iOS app with Flutter
+
+## Link and resources
+
+Discord Server: https://discord.gg/qMUPBgkW
+Architecture Diagram: https://drive.google.com/file/d/1XPH84nWvgRdFZSbuQdKIeymoLe_cK1_a/view?usp=sharing
+Conventional Commits: https://www.conventionalcommits.org/en/v1.0.0/#summary
